@@ -14,39 +14,36 @@ int main(){
 
     Node *root = NULL;
     deque<Node *> node_queue;
-
     Node *node = NULL;
 
-
-    string stringOfFile;
-    string stringOfLine;
-
-    string noDuplString;
+    string lineString;
+    string fileString;
+    string uniqueString;
 
     
     ifstream fin;
     fin.open("words.txt");
 
     while(!fin.eof()){
-        fin >> stringOfLine;
-        stringOfFile.append(stringOfLine);
+        fin >> lineString;
+        fileString.append(lineString);
     }
     int numOfOcc;
     
 
-    for(int i = 0; i < stringOfFile.length(); i++){
+    for(int i = 0; i < fileString.length(); i++){
         int countChar = 0;
-        for(int j = 0; j < stringOfFile.length(); j++){
-            if (stringOfFile[j] == stringOfFile[i]){
+        for(int j = 0; j < fileString.length(); j++){
+            if (fileString[j] == fileString[i]){
                 ++ countChar;
             }
         }
 
-        numOfOcc = count(noDuplString.begin(), noDuplString.end(), stringOfFile[i]);
+        numOfOcc = count(uniqueString.begin(), uniqueString.end(), fileString[i]);
 
         if (numOfOcc == 0){
-            noDuplString.append(string(1,stringOfFile[i]));
-            node = new Node(new DataClass(stringOfFile[i], countChar));
+            uniqueString.append(string(1,fileString[i]));
+            node = new Node(new DataClass(fileString[i], countChar));
 
             node_queue.push_back(node);
         }
