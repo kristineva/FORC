@@ -4,16 +4,17 @@
 
 #include "trees.h"
 
-#include <deque>
+#include <queue>
 
 #include <string.h>
 
 using namespace std;
 
+
 int main(){
 
     Node *root = NULL;
-    deque<Node *> node_queue;
+    priority_queue<Node *> node_queue;
     Node *node = NULL;
 
     string lineString;
@@ -40,27 +41,23 @@ int main(){
             uniqueString.append(string(1,fileString[i]));
             node = new Node(new DataClass(fileString[i], countChar));
 
-            node_queue.push_back(node);
+            node_queue.push(node);
         }
     }
 
-    // for(int i = 0; i < sizeof(node_queue); i++){
-    //     cout << i << ":" << node_queue[i] << endl;
-    // }
-
-    std::sort(node_queue.begin(), node_queue.end());
     
     while(!node_queue.empty()){
-        Node *left = node_queue.front();
-        node_queue.pop_front();
-        Node *right = node_queue.front();
-        node_queue.pop_front();
+        Node *left = node_queue.top();
+        node_queue.pop();
+        Node *right = node_queue.top();
+        node_queue.pop();
         node = new Node(NULL, left, right);
         if(!node_queue.empty()){
-            node_queue.push_back(node);
+            node_queue.push(node);
         }
     }
         
+
 
     root = node;
 
