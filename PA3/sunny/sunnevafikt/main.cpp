@@ -17,34 +17,39 @@ int main(){
 
     Node *node = NULL;
 
+
     string stringOfFile;
+    string stringOfLine;
+
     string noDuplString;
+
     
     ifstream fin;
     fin.open("words.txt");
 
     while(!fin.eof()){
-        fin >> stringOfFile;
-        
-        int numOfOcc;
+        fin >> stringOfLine;
+        stringOfFile.append(stringOfLine);
+    }
+    int numOfOcc;
+    
+
+    for(int i = 0; i < stringOfFile.length(); i++){
         int countChar = 0;
-
-        for(int i = 0; i < stringOfFile.length(); i++){
-            for(int j = 0; j < stringOfFile.length(); j++){
-                if (stringOfFile[j] == stringOfFile[i]){
-                    ++ countChar;
-                }
+        for(int j = 0; j < stringOfFile.length(); j++){
+            if (stringOfFile[j] == stringOfFile[i]){
+                ++ countChar;
             }
+        }
 
-            numOfOcc = count(noDuplString.begin(), noDuplString.end(), stringOfFile[i]);
+        numOfOcc = count(noDuplString.begin(), noDuplString.end(), stringOfFile[i]);
 
-            if (numOfOcc == 0){
-                noDuplString.append(string(1,stringOfFile[i]));
-                node = new Node(new DataClass(stringOfFile[i], countChar));
+        if (numOfOcc == 0){
+            noDuplString.append(string(1,stringOfFile[i]));
+            node = new Node(new DataClass(stringOfFile[i], countChar));
 
-                node_queue.push_back(node);
-            }
-        } 
+            node_queue.push_back(node);
+        }
     }
 
     while(!node_queue.empty()){
@@ -57,15 +62,15 @@ int main(){
             node_queue.push_back(node);
         }
     }
-    
+        
 
-    root = node;
+        root = node;
 
-    
-    cout << root << endl;
+        
+        cout << root << endl;
 
-    delete root;
-    root = NULL;
+        delete root;
+        root = NULL;
 
-    cout << root << endl;
+        cout << root << endl;
 }
