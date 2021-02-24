@@ -1,0 +1,46 @@
+ÞETTA ER LYSINGIN Á SPECIAL PRACTICE EXERCISE, VILDI BARA HAFA HANA HJÁ MÉR - KV KRISTIN (K DAWG)
+
+Here's one that I will not give a solution for until after PA3 is handed in, but it's worth the time to
+implement it and hang on to. It may not be the fastest way to do this (some students may later
+wish to optimize) but getting it to work properly is key to building bit strings in character arrays
+where the data may need to be read on a tighter level than in whole bytes.
+
+Make the class BitString (or whatever you want to call it).
+Here is a suggestion for operations, but this class will not be handed in, but you may want to
+use it as part of a later assignment, so make it in a way that you understand and feel works for
+the way you may use it.
+
+BitString::BitString()
+You may want to have parameters, initial number of bytes in the array, etc. You may also wish
+to make a copy constructor and maybe both a default constructor and one with parameters, or
+one with parameters with default values, whichever works for your implementation.
+
+BitString::~BitString()
+Destructor to clean up the byte/bit data.
+
+void BitString::setNextBit(bool value)
+Sets the next bit in the bitstring.
+use &, |, << and >> to actually set the next bit. Don't use a whole byte to represent a single bit.
+It can help to keep track of a current_bit or bitstring_position variable or something like that.
+
+bool BitString::getNextBit()
+Gets the next bit in the bitstring.
+use &, |, << and >> to actually get the value of the next bit. Then return a boolean value
+representing 1 or 0.
+It can help to keep track of a current_bit or bitstring_position variable or something like that.
+
+void BitString::goToStart()
+Set the get/set position to the start of the string. Can be helpful when you start to read from the
+bitstring after having added to it. Students can of course have separate set_pos and get_pos
+variables if that works for them.
+
+char* getBytes() (or unsigned char if that's what you're using)
+Returns a pointer to the actual array of bytes holding the data. This can be used to write it to a
+file.
+
+int getLength()
+Return the length of the bit string (in bits)
+
+bool isAtEnd()
+Returns True if the last bit has been read (current_position is at the end). This can be helpful
+when reading back from the bit string.
