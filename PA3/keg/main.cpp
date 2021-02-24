@@ -15,27 +15,28 @@ int main(){
     Node *node = NULL;
 
     string stringOfFile;
+    string stringOfLine;
+
     ifstream fin;
     fin.open("words.txt");
 
-
     while(!fin.eof()){
-        fin >> stringOfFile;
+        fin >> stringOfLine;
+        stringOfFile.append(stringOfLine);
+    }
+
     
-        char nodeExists[26];
+    char nodeExists[26];
 
-        for(int i = 0; i < stringOfFile.length(); i++){
+    for(int i = 0; i < stringOfFile.length(); i++){
 
-            char *letterCheck = find(begin(nodeExists), end(nodeExists), stringOfFile[i]);
+        char *letterCheck = find(begin(nodeExists), end(nodeExists), stringOfFile[i]);
 
-            if (letterCheck == end(nodeExists)) {
-                size_t counter = count(stringOfFile.begin(), stringOfFile.end(), stringOfFile[i]);
-                node = new Node(new DataClass(stringOfFile[i], counter));
-                node_queue.push_back(node);
-            }
+        if (letterCheck == end(nodeExists)) {
+            size_t counter = count(stringOfFile.begin(), stringOfFile.end(), stringOfFile[i]);
+            node = new Node(new DataClass(stringOfFile[i], counter));
+            node_queue.push_back(node);
         }
-            
-
     }
 
     while(!node_queue.empty()) {
