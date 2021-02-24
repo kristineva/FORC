@@ -20,6 +20,8 @@ int main(){
     string fileString;
     string uniqueString;
 
+    int countChar;
+    int numOfOcc;
     
     ifstream fin;
     fin.open("words.txt");
@@ -28,17 +30,10 @@ int main(){
         fin >> lineString;
         fileString.append(lineString);
     }
-    int numOfOcc;
     
 
     for(int i = 0; i < fileString.length(); i++){
-        int countChar = 0;
-        for(int j = 0; j < fileString.length(); j++){
-            if (fileString[j] == fileString[i]){
-                ++ countChar;
-            }
-        }
-
+        countChar = count(fileString.begin(), fileString.end(), fileString[i]);
         numOfOcc = count(uniqueString.begin(), uniqueString.end(), fileString[i]);
 
         if (numOfOcc == 0){
