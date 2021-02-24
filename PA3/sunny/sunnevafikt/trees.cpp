@@ -5,13 +5,14 @@
 using namespace std;
 
 
-DataClass::DataClass(char letter){
+DataClass::DataClass(char letter, int number){
     this->letter = letter;
+    this->number = number;
 }
 
 ostream& operator<<(ostream& out, const DataClass *dc){
     if(dc != NULL){
-        out << "{" << dc->letter << "}";
+        out << "{" << dc->letter << ":" << dc->number << "}";
     }
     return out;
 }
