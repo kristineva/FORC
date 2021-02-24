@@ -14,7 +14,7 @@ int main(){
     deque<Node *> node_queue;
     Node *node = NULL;
 
-    string stringOfFile;
+    string fileString;
     string stringOfLine;
 
     ifstream fin;
@@ -22,19 +22,22 @@ int main(){
 
     while(!fin.eof()){
         fin >> stringOfLine;
-        stringOfFile.append(stringOfLine);
+        fileString.append(stringOfLine);
     }
 
     
     char nodeExists[26];
+    int ne_idx = 0;
+    
+    for(int i = 0; i < fileString.length(); i++){
 
-    for(int i = 0; i < stringOfFile.length(); i++){
-
-        char *letterCheck = find(begin(nodeExists), end(nodeExists), stringOfFile[i]);
+        char *letterCheck = find(begin(nodeExists), end(nodeExists), fileString[i]);
 
         if (letterCheck == end(nodeExists)) {
-            size_t counter = count(stringOfFile.begin(), stringOfFile.end(), stringOfFile[i]);
-            node = new Node(new DataClass(stringOfFile[i], counter));
+            nodeExists[ne_idx] = fileString[i];
+            ne_idx += 1;
+            size_t counter = count(fileString.begin(), fileString.end(), fileString[i]);
+            node = new Node(new DataClass(fileString[i], counter));
             node_queue.push_back(node);
         }
     }
