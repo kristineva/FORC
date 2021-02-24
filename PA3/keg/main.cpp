@@ -1,21 +1,41 @@
 #include <iostream>
-#include "trees.h"
+#include <fstream>
 #include <deque>
+#include <string.h>
+#include <algorithm>
+#include "trees.h"
 
 using namespace std;
 
+
 int main(){
-    // Node *root = new Node(new DataClass(1, 'a'), new Node(new DataClass(2, 'b'), NULL, new Node(new DataClass(4, 'd'), NULL, NULL)), new Node(new DataClass(3, 'c'), NULL, NULL));
 
     Node *root = NULL;
     deque<Node *> node_queue;
-
     Node *node = NULL;
 
-    for (int i = 0; i < 12; i++) {
-        node = new Node(new DataClass((char)((int)'a' + i), i + 1));
+    string stringOfFile;
+    ifstream fin;
+    fin.open("words.txt");
 
-        node_queue.push_back(node);
+    while(!fin.eof()){
+        fin >> stringOfFile;
+    
+        cout << stringOfFile;
+        char nodeExists[26];
+
+        for(int i = 0; i < stringOfFile.length(); i++){
+
+            char *letterCheck = find(begin(nodeExists), end(nodeExists), stringOfFile[i]);
+
+            if (letterCheck == end(nodeExists)) {
+                size_t counter = count(stringOfFile.begin(), stringOfFile.end(), stringOfFile[i]);
+                node = new Node(new DataClass(stringOfFile[i], counter));
+                node_queue.push_back(node);
+            }
+        }
+            
+
     }
 
     while(!node_queue.empty()) {
