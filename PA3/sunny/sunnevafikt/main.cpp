@@ -44,6 +44,12 @@ int main(){
         }
     }
 
+    // for(int i = 0; i < sizeof(node_queue); i++){
+    //     cout << i << ":" << node_queue[i] << endl;
+    // }
+
+    std::sort(node_queue.begin(), node_queue.end());
+    
     while(!node_queue.empty()){
         Node *left = node_queue.front();
         node_queue.pop_front();
@@ -56,13 +62,14 @@ int main(){
     }
         
 
-        root = node;
+    root = node;
 
-        
-        cout << root << endl;
+    
+    
+    cout << root << endl;
 
-        delete root;
-        root = NULL;
+    delete root;
+    root = NULL;
 
-        cout << root << endl;
+    cout << root << endl;
 }

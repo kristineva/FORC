@@ -17,6 +17,11 @@ ostream& operator<<(ostream& out, const DataClass *dc){
     return out;
 }
 
+bool DataClass::operator<(const DataClass dc){
+     cout <<"OG HÉR LÍKA" << endl;
+    return number < dc.number;
+}
+
 Node::Node(DataClass *data, Node *left, Node *right){
     this->data = data;
     this->left = left;
@@ -41,6 +46,11 @@ Node* Node::find(char c, Node* &node){
         return find(c, node->right);
     }
     return node;
+}
+
+bool Node::operator<(Node const node){
+    cout <<"HÉR ER ÉG" << endl;
+    return data < node.data;
 }
 
 ostream& operator<<(ostream& out, const Node *node){
