@@ -6,12 +6,12 @@ using namespace std;
 
 class DataClass{
 public:
-    DataClass(char letter);
+    DataClass(char letter, int number = 1);
 
     friend ostream& operator<<(ostream& out, const DataClass *dc);
 
-    int number;
     char letter;
+    int number;
 };
 
 class Node{
