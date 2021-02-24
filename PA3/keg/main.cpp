@@ -18,10 +18,10 @@ int main(){
     ifstream fin;
     fin.open("words.txt");
 
+
     while(!fin.eof()){
         fin >> stringOfFile;
     
-        cout << stringOfFile;
         char nodeExists[26];
 
         for(int i = 0; i < stringOfFile.length(); i++){
