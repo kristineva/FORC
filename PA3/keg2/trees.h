@@ -2,16 +2,7 @@
 
 using namespace std;
 
-class HuffTree{
-public:
-    HuffTree(Node* root = NULL);
-    virtual ~HuffTree();
 
-    friend ostream& operator<<(ostream& out, const HuffTree *ht);
-
-private:
-    Node* root;
-};
 
 class DataClass{
 public:
@@ -44,4 +35,15 @@ private:
     
     Node *left;
     Node *right;
+};
+
+class HuffTree{
+public:
+    HuffTree(Node *root = NULL);
+    virtual ~HuffTree();
+
+    friend ostream& operator<<(ostream& out, const HuffTree *ht);
+
+private:
+    Node* root;
 };

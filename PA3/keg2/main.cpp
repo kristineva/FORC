@@ -22,7 +22,7 @@ int main(){
     string uniqueString;
 
     int countChar;
-    int numOfOcc;
+    int checkChar;
     
     ifstream fin;
     fin.open("words.txt");
@@ -32,13 +32,12 @@ int main(){
         fileString.append(lineString);
     }
     
-    // sort(fileString.begin(), fileString.end());
 
     for(int i = 0; i < fileString.length(); i++){
-        countChar = count(fileString.begin(), fileString.end(), fileString[i]);
-        numOfOcc = count(uniqueString.begin(), uniqueString.end(), fileString[i]);
+        checkChar = count(uniqueString.begin(), uniqueString.end(), fileString[i]);
 
-        if (numOfOcc == 0){
+        if (checkChar == 0){
+            countChar = count(fileString.begin(), fileString.end(), fileString[i]);
             uniqueString.append(string(1,fileString[i]));
             node = new Node(new DataClass(fileString[i], countChar));
 
@@ -54,8 +53,8 @@ int main(){
         Node *right = node_queue.top();
         node_queue.pop();
 
-        numOfOcc = left->data->number + right->data->number;
-        node = new Node(new DataClass(' ', numOfOcc), left, right);
+        checkChar = left->data->number + right->data->number;
+        node = new Node(new DataClass(' ', checkChar), left, right);
         if(!node_queue.empty()){
             node_queue.push(node);
         }
@@ -64,13 +63,10 @@ int main(){
     HuffTree *huffman = NULL;
     huffman = new HuffTree(node);
 
-
-    
-    
     cout << huffman << endl;
 
-    delete huffman;
-    huffman = NULL;
+    //delete huffman;
+    //huffman = NULL;
 
-    cout << huffman << endl;
+    //cout << huffman << endl;
 }

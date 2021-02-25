@@ -4,20 +4,7 @@
 
 using namespace std;
 
-HuffTree::HuffTree(Node* root){
-    this->root = root;
-}
 
-HuffTree::~HuffTree(){
-    delete root;
-}
-
-ostream& operator<<(ostream& out, const HuffTree *ht){
-    if(ht != NULL){
-        out << ht->root;
-    }
-    return out;
-}
 
 DataClass::DataClass(char letter, int number){
     this->letter = letter;
@@ -81,6 +68,23 @@ ostream& operator<<(ostream& out, const Node *node){
         out << node->left;
         out << " " << node->data << " ";
         out << node->right;
+    }
+    return out;
+}
+
+
+
+HuffTree::HuffTree(Node *root){
+    this->root = root;
+}
+
+HuffTree::~HuffTree(){
+    delete root;
+}
+
+ostream& operator<<(ostream& out, const HuffTree *ht){
+    if(ht->root != NULL){
+        out << ht->root;
     }
     return out;
 }
