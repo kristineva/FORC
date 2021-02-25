@@ -33,7 +33,7 @@ int main(){
 
     while(!fin.eof()){
         fin >> lineString;
-        fileString.append(lineString);
+        fileString.append(lineString + "\n");
     }
 
     fin.close();
@@ -50,6 +50,13 @@ int main(){
             uniqueString.append(string(1,fileString[i]));
             node_queue.push(new Node(fileString[i], countChar, NULL, NULL));
         }
+    }
+
+    priority_queue<Node*, vector<Node*>, CompareNodes> copyQueue;
+    copyQueue = node_queue;
+    while(!copyQueue.empty()){
+        cout << copyQueue.top() << endl;
+        copyQueue.pop();
     }
     
     cout << "AFTER FIRST FOR LOOP" << endl;
@@ -80,6 +87,9 @@ int main(){
     for (int i = 0; i < uniqueString.size(); i++){
         fout << uniqueString[i] << " | " << huffCode[uniqueString[i]] << "\n";
     }
+
+    fout << "/" << endl;
+
     for (int i = 0; i < fileString.size(); i++){
         fout << huffCode[fileString[i]];
     }

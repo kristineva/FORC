@@ -53,7 +53,7 @@ ostream& operator<<(ostream& out, const Node *node){
 
 
 bool CompareNodes::operator()(Node* node1, Node* node2){
-    return node1->number < node2->number;
+    return node2->number < node1->number;
 }
 
 
