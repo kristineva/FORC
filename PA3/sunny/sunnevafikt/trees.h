@@ -6,7 +6,7 @@ using namespace std;
 
 class DataClass{
 public:
-    DataClass(int number = 1, char letter = ' ');
+    DataClass(int number = 0, char letter = ' ');
 
     friend ostream& operator<<(ostream& out, const DataClass dc);
 

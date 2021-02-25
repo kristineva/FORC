@@ -12,7 +12,7 @@ DataClass::DataClass(int number, char letter){
 }
 
 ostream& operator<<(ostream& out, const DataClass dc){
-    if(&dc != NULL){
+    if(dc.number != 0){
         out << "{" << dc.letter << ":" << dc.number << "}";
     }
     return out;

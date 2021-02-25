@@ -13,7 +13,6 @@ using namespace std;
 
 int main(){
 
-    Node *root = NULL;
     priority_queue<DataClass, vector<DataClass>, greater<DataClass> > node_queue;
     Node node;
     DataClass data = NULL;
