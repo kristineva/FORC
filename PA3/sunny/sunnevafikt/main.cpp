@@ -8,6 +8,8 @@
 
 #include <string.h>
 
+#include <string>
+
 #include <unordered_map>
 
 #include <algorithm>
@@ -16,7 +18,7 @@ using namespace std;
 
 
 int main(int argc, char ** argv){
-    if (argv[0] == "-e"){
+    if (strcmp(argv[1],"-e") == 0){
         Node *node = NULL;
         priority_queue<Node*, vector<Node*>, CompareNodes> node_queue;
         
@@ -32,7 +34,7 @@ int main(int argc, char ** argv){
         unordered_map<char, string> huffCode;
 
         ifstream fin;
-        fin.open(argv[1]);
+        fin.open(argv[2]);
 
         while(!fin.eof()){
             fin >> lineString;
@@ -89,8 +91,8 @@ int main(int argc, char ** argv){
         cout << "AFTER huffMAnENDODING" << endl;
 
         ofstream fout;
-        remove(argv[2]);
-        fout.open(argv[2], ios_base::app);
+        remove(argv[3]);
+        fout.open(argv[3], ios_base::app);
 
         for (int i = 0; i < uniqueString.size(); i++){
             fout << uniqueString[i] << " | " << huffCode[uniqueString[i]] << "\n";
@@ -99,7 +101,12 @@ int main(int argc, char ** argv){
         fout << "/" << endl;
 
         for (int i = 0; i < fileString.size(); i++){
-            fout << huffCode[fileString[i]];
+            if (fileString[i] != '\n'){
+                fout << huffCode[fileString[i]];
+            }
+            else{
+                fout << fileString[i];
+            }
         }
     }
     // delete &huffman;
