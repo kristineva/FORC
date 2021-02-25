@@ -6,9 +6,9 @@ using namespace std;
 
 
 
-DataClass::DataClass(char letter, int number){
-    this->letter = letter;
+DataClass::DataClass(int number, char letter){
     this->number = number;
+    this->letter = letter;
 }
 
 ostream& operator<<(ostream& out, const DataClass *dc){

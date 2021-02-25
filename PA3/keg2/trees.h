@@ -6,15 +6,15 @@ using namespace std;
 
 class DataClass{
 public:
-    DataClass(char letter = ' ', int number = 1);
+    DataClass(int number = 1, char letter = ' ');
 
     friend ostream& operator<<(ostream& out, const DataClass *dc);
 
     bool operator<(const DataClass dc);
     bool operator>(const DataClass dc);
 
-    char letter;
     int number;
+    char letter;
 };
 
 class Node{

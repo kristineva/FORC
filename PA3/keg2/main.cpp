@@ -39,17 +39,17 @@ int main(){
         if (checkChar == 0){
             countChar = count(fileString.begin(), fileString.end(), fileString[i]);
             uniqueString.append(string(1,fileString[i]));
-            node = new Node(new DataClass(fileString[i], countChar));
+            node = new Node(new DataClass(countChar, fileString[i]));
 
             node_queue.push(node);
         }
     }
 
-    while (! node_queue.empty() ) {
+    /* while (! node_queue.empty() ) {
         cout << "node_queue";
         cout << node_queue.top() << "\n";
         node_queue.pop();
-    }
+    } */
 
     
     while(!node_queue.empty()){
@@ -59,7 +59,7 @@ int main(){
         node_queue.pop();
 
         checkChar = left->data->number + right->data->number;
-        node = new Node(new DataClass(' ', checkChar), left, right);
+        node = new Node(new DataClass(checkChar, ' '), left, right);
         if(!node_queue.empty()){
             node_queue.push(node);
         }
