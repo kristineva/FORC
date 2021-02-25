@@ -50,25 +50,27 @@ int main(){
     
 
 
-    // while (!node_queue.empty() ) {
-    //     cout << node_queue.top() << "\n";
-
-    //     node_queue.pop();
-
-    // }
-
     while(!data_queue.empty()){
         Node *left = new Node(data_queue.top());
-        data_queue.pop();
-        Node *right = new Node(data_queue.top());
+        cout << "LEFT:  "<< data_queue.top() << endl;
         data_queue.pop();
 
-        countChar = left->data.number + right->data.number;
+        countChar = left->data.number;
+        Node *right = NULL;
 
+        if (!data_queue.empty()){
+            Node *right = new Node(data_queue.top());
+            cout << "RIGHT: " << data_queue.top() << endl;
+            data_queue.pop();
+            countChar += right->data.number;
+
+            
+        }
         node = new Node(DataClass(countChar), left, right);
 
-        delete left;
-        delete right;
+        if (!data_queue.empty()){
+            data_queue.push(node);
+        }
     }
 
 
@@ -80,7 +82,7 @@ int main(){
 
     cout << huffman << endl;
 
-    delete &huffman;
+    // delete &huffman;
 
     // cout << huffman << endl;
 }
