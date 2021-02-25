@@ -10,88 +10,97 @@
 
 #include <unordered_map>
 
+#include <algorithm>
+
 using namespace std;
 
 
-int main(){
-    Node *node = NULL;
-    priority_queue<Node*, vector<Node*>, CompareNodes> node_queue;
-    
+int main(int argc, char ** argv){
+    if (argv[0] == "-e"){
+        Node *node = NULL;
+        priority_queue<Node*, vector<Node*>, CompareNodes> node_queue;
+        
 
-    string lineString;
-    string fileString;
-    string uniqueString;
+        string lineString;
+        string fileString;
+        string uniqueString;
 
 
-    int countChar;
-    int checkChar;
-    
-    unordered_map<char, string> huffCode;
+        int countChar;
+        int checkChar;
+        
+        unordered_map<char, string> huffCode;
 
-    ifstream fin;
-    fin.open("words.txt");
+        ifstream fin;
+        fin.open(argv[1]);
 
-    while(!fin.eof()){
-        fin >> lineString;
-        fileString.append(lineString + "\n");
-    }
-
-    fin.close();
-
-    cout << "AFTER OPEN FILE" << endl;
-    
-
-    for(int i = 0; i < fileString.length(); i++){
-
-        checkChar = count(uniqueString.begin(), uniqueString.end(), fileString[i]);
-
-        if (checkChar == 0){
-            countChar = count(fileString.begin(), fileString.end(), fileString[i]);
-            uniqueString.append(string(1,fileString[i]));
-            node_queue.push(new Node(fileString[i], countChar, NULL, NULL));
+        while(!fin.eof()){
+            fin >> lineString;
+            fileString.append(lineString + "\n");
         }
-    }
 
-    priority_queue<Node*, vector<Node*>, CompareNodes> copyQueue;
-    copyQueue = node_queue;
-    while(!copyQueue.empty()){
-        cout << copyQueue.top() << endl;
-        copyQueue.pop();
-    }
-    
-    cout << "AFTER FIRST FOR LOOP" << endl;
+        fin.close();
 
-    while(node_queue.size() > 1){
-        Node *left = node_queue.top();
-        node_queue.pop();
-        Node *right = node_queue.top();
-        node_queue.pop();
+        cout << "AFTER OPEN FILE" << endl;
+        
 
-        countChar = left->number + right->number;
-        node_queue.push(new Node('\0', countChar, left, right));
-    }
+        for(int i = 0; i < fileString.length(); i++){
 
-    cout << "AFTER MAKE TREE WHILE LOOP" << endl;
+            checkChar = count(uniqueString.begin(), uniqueString.end(), fileString[i]);
 
-    HuffTree *tree = new HuffTree(node_queue.top());
+            if (checkChar == 0){
+                countChar = count(fileString.begin(), fileString.end(), fileString[i]);
+                if (fileString[i] != '\n'){
+                    uniqueString.append(string(1,fileString[i]));
+                    node_queue.push(new Node(fileString[i], countChar, NULL, NULL));
+                }
+            }
+        }
 
-    cout << "AFTER MAKing ROOT TOP" << endl;
-    
-    tree->huffmanEncoding(tree->root, "", huffCode);
 
-    cout << "AFTER huffMAnENDODING" << endl;
+        sort(uniqueString.begin(), uniqueString.end());
+        priority_queue<Node*, vector<Node*>, CompareNodes> copyQueue;
+        copyQueue = node_queue;
+        while(!copyQueue.empty()){
+            cout << copyQueue.top() << endl;
+            copyQueue.pop();
+        }
+        
+        cout << "AFTER FIRST FOR LOOP" << endl;
 
-    ofstream fout;
-    fout.open("encodedWords.txt", ios_base::app);
+        while(node_queue.size() > 1){
+            Node *left = node_queue.top();
+            node_queue.pop();
+            Node *right = node_queue.top();
+            node_queue.pop();
 
-    for (int i = 0; i < uniqueString.size(); i++){
-        fout << uniqueString[i] << " | " << huffCode[uniqueString[i]] << "\n";
-    }
+            countChar = left->number + right->number;
+            node_queue.push(new Node('\0', countChar, left, right));
+        }
 
-    fout << "/" << endl;
+        cout << "AFTER MAKE TREE WHILE LOOP" << endl;
 
-    for (int i = 0; i < fileString.size(); i++){
-        fout << huffCode[fileString[i]];
+        HuffTree *tree = new HuffTree(node_queue.top());
+
+        cout << "AFTER MAKing ROOT TOP" << endl;
+        
+        tree->huffmanEncoding(tree->root, "", huffCode);
+
+        cout << "AFTER huffMAnENDODING" << endl;
+
+        ofstream fout;
+        remove(argv[2]);
+        fout.open(argv[2], ios_base::app);
+
+        for (int i = 0; i < uniqueString.size(); i++){
+            fout << uniqueString[i] << " | " << huffCode[uniqueString[i]] << "\n";
+        }
+
+        fout << "/" << endl;
+
+        for (int i = 0; i < fileString.size(); i++){
+            fout << huffCode[fileString[i]];
+        }
     }
     // delete &huffman;
 
