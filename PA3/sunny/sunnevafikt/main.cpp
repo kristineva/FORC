@@ -18,20 +18,27 @@ using namespace std;
 
 
 int main(int argc, char ** argv){
+    Node *node = NULL;
+
+    string lineString;
+    string fileString;
+    string uniqueString;
+    unordered_map<char, string> huffCode;
+
+
     if (strcmp(argv[1],"-e") == 0){
-        Node *node = NULL;
+        
         priority_queue<Node*, vector<Node*>, CompareNodes> node_queue;
         
 
-        string lineString;
-        string fileString;
-        string uniqueString;
+        
 
 
         int countChar;
         int checkChar;
         
-        unordered_map<char, string> huffCode;
+        
+
 
         ifstream fin;
         fin.open(argv[2]);
@@ -43,8 +50,6 @@ int main(int argc, char ** argv){
 
         fin.close();
 
-        cout << "AFTER OPEN FILE" << endl;
-        
 
         for(int i = 0; i < fileString.length(); i++){
 
@@ -67,8 +72,7 @@ int main(int argc, char ** argv){
             cout << copyQueue.top() << endl;
             copyQueue.pop();
         }
-        
-        cout << "AFTER FIRST FOR LOOP" << endl;
+
 
         while(node_queue.size() > 1){
             Node *left = node_queue.top();
@@ -80,16 +84,11 @@ int main(int argc, char ** argv){
             node_queue.push(new Node('\0', countChar, left, right));
         }
 
-        cout << "AFTER MAKE TREE WHILE LOOP" << endl;
 
         HuffTree *tree = new HuffTree(node_queue.top());
 
-        cout << "AFTER MAKing ROOT TOP" << endl;
-        
+
         tree->huffmanEncoding(tree->root, "", huffCode);
-
-        cout << "AFTER huffMAnENDODING" << endl;
-
         ofstream fout;
         remove(argv[3]);
         fout.open(argv[3], ios_base::app);
@@ -108,6 +107,33 @@ int main(int argc, char ** argv){
                 fout << fileString[i];
             }
         }
+        fout.close();
+    }
+
+    else if (strcmp(argv[1],"-d") == 0){
+
+        ifstream fin;
+        fin.open(argv[2]);
+
+        while(lineString != "\\"){
+            fin >> lineString;
+            char letter = lineString[0];
+            lineString.erase(0,2);
+            huffCode[letter] = lineString;
+        }
+
+        node = new Node();
+        HuffTree *tree = new HuffTree(node);
+        
+
+        string code;
+
+        unordered_map<char, string>::iterator count = huffCode.begin();
+        while(count != huffCode.end()){
+            tree->huffmanDecoding(tree->root, count->first, count->second);
+        }
+
+        fin.close();
     }
     // delete &huffman;
 

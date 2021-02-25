@@ -6,26 +6,6 @@ using namespace std;
 
 
 
-// DataClass::DataClass(int number, char letter){
-//     this->letter = letter;
-//     this->number = number;
-// }
-
-// ostream& operator<<(ostream& out, const DataClass dc){
-//     if(dc.number != 0){
-//         out << "{" << dc.letter << ":" << dc.number << "}";
-//     }
-//     return out;
-// }
-
-// bool DataClass::operator<(const DataClass dc) const{
-//     return number < dc.number;
-// }
-
-// bool DataClass::operator>(const DataClass dc) const{
-//     return number > dc.number;
-// }
-
 Node::Node(char letter, int number, Node *left, Node *right){
     this->letter = letter;
     this->number = number;
@@ -86,6 +66,20 @@ void HuffTree::huffmanEncoding(Node* node, string code, unordered_map<char, stri
 
     huffmanEncoding(node->left, code + "0", huffCode);
     huffmanEncoding(node->right, code + "1", huffCode);
+}
+
+void HuffTree::huffmanDecodingRecurr(Node *node, char letter, string code, int counter){
+    if (code == ""){
+        return;
+    }
+
+    if (code[counter] == '0'){
+        
+    }
+}
+
+void HuffTree::huffmanDecoding(Node* node, char letter, string code){
+    huffmanDecodingRecurr(root, letter, code, 0);
 }
 
 ostream& operator<<(ostream& out, const HuffTree *ht){

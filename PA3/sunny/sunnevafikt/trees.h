@@ -5,20 +5,6 @@
 using namespace std;
 
 
-
-// class DataClass{
-// public:
-//     DataClass(int number = 0, char letter = ' ');
-
-//     friend ostream& operator<<(ostream& out, const DataClass dc);
-
-//     bool operator<(const DataClass dc) const;
-//     bool operator>(const DataClass dc) const;
-
-//     char letter;
-//     int number;
-// };
-
 class Node{
 public:
     Node(char letter = ' ', int number = 0, Node *left = NULL, Node *right = NULL);
@@ -53,7 +39,8 @@ public:
 
 
     void huffmanEncoding(Node* node, string str, unordered_map<char, string> &huffCode);
-
+    void huffmanDecoding(Node* node, char letter, string code);
+    void huffmanDecodingRecurr(Node* node, char letter, string code);
     Node *root;
 private:
     
