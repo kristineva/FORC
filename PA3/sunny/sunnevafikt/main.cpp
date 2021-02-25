@@ -13,7 +13,7 @@ using namespace std;
 
 int main(){
 
-    priority_queue<DataClass, vector<DataClass>, greater<DataClass> > node_queue;
+    priority_queue<DataClass, vector<DataClass>, greater<DataClass> > data_queue;
     Node node;
     DataClass data = NULL;
 
@@ -33,6 +33,8 @@ int main(){
         fin >> lineString;
         fileString.append(lineString);
     }
+
+    fin.close();
     
     for(int i = 0; i < fileString.length(); i++){
         checkChar = count(uniqueString.begin(), uniqueString.end(), fileString[i]);
@@ -42,39 +44,44 @@ int main(){
             uniqueString.append(string(1,fileString[i]));
             data = DataClass(countChar, fileString[i]);
             
-            
-            node_queue.push(data);
+            data_queue.push(data);
             
         }
     }
     
 
-    while (!node_queue.empty() ) {
-        cout << node_queue.top() << "\n";
 
-        node_queue.pop();
+    // while (!node_queue.empty() ) {
+    //     cout << node_queue.top() << "\n";
 
-    }
+    //     node_queue.pop();
 
-    while(!node_queue.empty()){
-        Node left = Node(node_queue.top());
-        node_queue.pop();
-        Node right = Node(node_queue.top());
-        node_queue.pop();
+    // }
+
+    while(!data_queue.empty()){
+        Node left = Node(data_queue.top());
+        data_queue.pop();
+        Node right = Node(data_queue.top());
+        data_queue.pop();
 
         countChar = left.data.number + right.data.number;
-        node = Node(DataClass(countChar, ' '), &left, &right);
+
+        node = Node(DataClass(countChar), &left, &right);
+
+        delete &left;
+        delete &right;
     }
 
-    HuffTree *huffman = NULL;
-    huffman = new HuffTree(node);
 
-    fin.close();
 
-    // cout << huffman << endl;
+    HuffTree huffman;
+    huffman = HuffTree(node);
 
-    // delete huffman;
-    // huffman = NULL;
+    
+
+    cout <<huffman << endl;
+
+    delete &huffman;
 
     // cout << huffman << endl;
 }

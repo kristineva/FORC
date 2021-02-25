@@ -25,8 +25,7 @@ public:
     Node* find(char c, Node* &node);
 
     bool operator<( Node const node) const;
-    // friend bool operator<(const Node *node1, const Node *node2);
-    bool operator>(const Node node);
+    bool operator>(Node const node) const;
 
     friend ostream& operator<<(ostream& out, const Node *node);
 
@@ -41,6 +40,7 @@ private:
 
 class HuffTree{
 public:
+    HuffTree();
     HuffTree(Node root);
     virtual ~HuffTree();
 
