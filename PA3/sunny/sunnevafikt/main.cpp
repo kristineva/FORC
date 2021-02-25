@@ -4,16 +4,17 @@
 
 #include "trees.h"
 
-#include <deque>
+#include <queue>
 
 #include <string.h>
 
 using namespace std;
 
+
 int main(){
 
     Node *root = NULL;
-    deque<Node *> node_queue;
+    priority_queue<Node *, vector <Node *>, greater<Node *> > node_queue;
     Node *node = NULL;
 
     string lineString;
@@ -31,6 +32,7 @@ int main(){
         fileString.append(lineString);
     }
     
+    // sort(fileString.begin(), fileString.end());
 
     for(int i = 0; i < fileString.length(); i++){
         countChar = count(fileString.begin(), fileString.end(), fileString[i]);
@@ -40,29 +42,35 @@ int main(){
             uniqueString.append(string(1,fileString[i]));
             node = new Node(new DataClass(fileString[i], countChar));
 
-            node_queue.push_back(node);
+            node_queue.push(node);
         }
     }
 
+    cout << node_queue.top() << endl;
+    
     while(!node_queue.empty()){
-        Node *left = node_queue.front();
-        node_queue.pop_front();
-        Node *right = node_queue.front();
-        node_queue.pop_front();
-        node = new Node(NULL, left, right);
+        Node *left = node_queue.top();
+        node_queue.pop();
+        Node *right = node_queue.top();
+        node_queue.pop();
+
+        numOfOcc = left->data->number + right->data->number;
+        node = new Node(new DataClass(' ', numOfOcc), left, right);
         if(!node_queue.empty()){
-            node_queue.push_back(node);
+            node_queue.push(node);
         }
     }
-        
 
-        root = node;
+    HuffTree *huffman = NULL;
+    huffman = new HuffTree(node);
 
-        
-        cout << root << endl;
 
-        delete root;
-        root = NULL;
+    
+    
+    cout << huffman << endl;
 
-        cout << root << endl;
+    delete huffman;
+    huffman = NULL;
+
+    cout << huffman << endl;
 }
