@@ -14,7 +14,7 @@ using namespace std;
 int main(){
 
     Node *root = NULL;
-    priority_queue<Node *> node_queue;
+    priority_queue<Node *, vector <Node *>, greater<Node *> > node_queue;
     Node *node = NULL;
 
     string lineString;
@@ -32,6 +32,7 @@ int main(){
         fileString.append(lineString);
     }
     
+    // sort(fileString.begin(), fileString.end());
 
     for(int i = 0; i < fileString.length(); i++){
         countChar = count(fileString.begin(), fileString.end(), fileString[i]);
@@ -45,28 +46,31 @@ int main(){
         }
     }
 
+    cout << node_queue.top() << endl;
     
     while(!node_queue.empty()){
         Node *left = node_queue.top();
         node_queue.pop();
         Node *right = node_queue.top();
         node_queue.pop();
-        node = new Node(NULL, left, right);
+
+        numOfOcc = left->data->number + right->data->number;
+        node = new Node(new DataClass(' ', numOfOcc), left, right);
         if(!node_queue.empty()){
             node_queue.push(node);
         }
     }
-        
 
+    HuffTree *huffman = NULL;
+    huffman = new HuffTree(node);
 
-    root = node;
 
     
     
-    cout << root << endl;
+    cout << huffman << endl;
 
-    delete root;
-    root = NULL;
+    delete huffman;
+    huffman = NULL;
 
-    cout << root << endl;
+    cout << huffman << endl;
 }

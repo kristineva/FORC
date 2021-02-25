@@ -7,6 +7,7 @@
         "deque": "cpp",
         "filesystem": "cpp",
         "system_error": "cpp",
-        "__split_buffer": "cpp"
+        "__split_buffer": "cpp",
+        "queue": "cpp"
     }
 }
