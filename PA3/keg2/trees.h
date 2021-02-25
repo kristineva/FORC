@@ -45,5 +45,5 @@ public:
     friend ostream& operator<<(ostream& out, const HuffTree *ht);
 
 private:
-    Node* root;
+    Node *root;
 };

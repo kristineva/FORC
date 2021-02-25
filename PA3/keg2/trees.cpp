@@ -64,7 +64,6 @@ bool Node::operator>(Node const node){
 
 ostream& operator<<(ostream& out, const Node *node){
     if(node != NULL){
-        
         out << node->left;
         out << " " << node->data << " ";
         out << node->right;

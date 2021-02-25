@@ -14,7 +14,7 @@ using namespace std;
 int main(){
 
     Node *root = NULL;
-    priority_queue<Node *, vector <Node *>, greater<Node *> > node_queue;
+    priority_queue<Node *> node_queue;
     Node *node = NULL;
 
     string lineString;
@@ -45,7 +45,12 @@ int main(){
         }
     }
 
-    cout << node_queue.top() << endl;
+    while (! node_queue.empty() ) {
+        cout << "node_queue";
+        cout << node_queue.top() << "\n";
+        node_queue.pop();
+    }
+
     
     while(!node_queue.empty()){
         Node *left = node_queue.top();
