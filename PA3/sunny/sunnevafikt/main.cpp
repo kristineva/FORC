@@ -77,7 +77,9 @@ int main(){
     ofstream fout;
     fout.open("encodedWords.txt", ios_base::app);
 
-
+    for (int i = 0; i < uniqueString.size(); i++){
+        fout << uniqueString[i] << " | " << huffCode[uniqueString[i]] << "\n";
+    }
     for (int i = 0; i < fileString.size(); i++){
         fout << huffCode[fileString[i]];
     }
