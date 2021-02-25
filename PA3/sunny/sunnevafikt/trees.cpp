@@ -54,17 +54,16 @@ Node* Node::find(char c, Node* &node){
 
 bool Node::operator<(Node const node){
 
-    return data < node.data;
+    return data->number < node.data->number;
 }
 
 bool Node::operator>(Node const node){
 
-    return data > node.data;
+    return data->number > node.data->number;
 }
 
 ostream& operator<<(ostream& out, const Node *node){
     if(node != NULL){
-        
         out << node->left;
         out << " " << node->data << " ";
         out << node->right;

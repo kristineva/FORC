@@ -44,8 +44,11 @@ int main(){
             node_queue.push(node);
         }
     }
-
-    cout << node_queue.top() << endl;
+    
+    while (!node_queue.empty() ) {
+        cout << node_queue.top() << "\n";
+        node_queue.pop();
+    }
     
     while(!node_queue.empty()){
         Node *left = node_queue.top();
@@ -60,10 +63,10 @@ int main(){
         }
     }
 
+    
     HuffTree *huffman = NULL;
     huffman = new HuffTree(node);
 
-    
     cout << huffman << endl;
 
     delete huffman;
