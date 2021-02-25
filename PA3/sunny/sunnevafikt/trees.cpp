@@ -70,19 +70,17 @@ ostream& operator<<(ostream& out, const Node *node){
     return out;
 }
 
-HuffTree::HuffTree(){
-    this->root = Node();
-}
-
-HuffTree::HuffTree(Node root){
+HuffTree::HuffTree(Node *root){
     this->root = root;
 }
 
 HuffTree::~HuffTree(){
-    delete &root;
+    delete root;
 }
 
-ostream& operator<<(ostream& out, const HuffTree ht){
-    out << ht.root << "HÉRHÉRHÉR ER ÉG!!";
+ostream& operator<<(ostream& out, const HuffTree *ht){
+    if(ht->root != NULL){
+        out << ht->root;
+    }
     return out;
 }

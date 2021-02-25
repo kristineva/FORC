@@ -40,12 +40,11 @@ private:
 
 class HuffTree{
 public:
-    HuffTree();
-    HuffTree(Node root);
+    HuffTree(Node *root = NULL);
     virtual ~HuffTree();
 
-    friend ostream& operator<<(ostream& out, const HuffTree ht);
+    friend ostream& operator<<(ostream& out, const HuffTree *ht);
 
 private:
-    Node root;
+    Node *root;
 };

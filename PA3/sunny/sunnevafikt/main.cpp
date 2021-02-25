@@ -14,9 +14,8 @@ using namespace std;
 int main(){
 
     priority_queue<DataClass, vector<DataClass>, greater<DataClass> > data_queue;
-    Node node;
+    Node *node = NULL;
     DataClass data = NULL;
-
     
 
     string lineString;
@@ -59,27 +58,27 @@ int main(){
     // }
 
     while(!data_queue.empty()){
-        Node left = Node(data_queue.top());
+        Node *left = new Node(data_queue.top());
         data_queue.pop();
-        Node right = Node(data_queue.top());
+        Node *right = new Node(data_queue.top());
         data_queue.pop();
 
-        countChar = left.data.number + right.data.number;
+        countChar = left->data.number + right->data.number;
 
-        node = Node(DataClass(countChar), &left, &right);
+        node = new Node(DataClass(countChar), left, right);
 
-        delete &left;
-        delete &right;
+        delete left;
+        delete right;
     }
 
 
 
-    HuffTree huffman;
-    huffman = HuffTree(node);
+    HuffTree *huffman = NULL;
+    huffman = new HuffTree(node);
 
     
 
-    cout <<huffman << endl;
+    cout << huffman << endl;
 
     delete &huffman;
 
