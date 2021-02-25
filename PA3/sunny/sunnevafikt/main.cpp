@@ -8,23 +8,26 @@
 
 #include <string.h>
 
+#include <unordered_map>
+
 using namespace std;
 
 
 int main(){
-
-    priority_queue<DataClass, vector<DataClass>, greater<DataClass> > data_queue;
     Node *node = NULL;
-    DataClass data = NULL;
-    
+    priority_queue<Node*, vector<Node*>, CompareNodes> node_queue;
+    HuffTree *tree = NULL;
 
     string lineString;
     string fileString;
     string uniqueString;
 
+
     int countChar;
     int checkChar;
     
+    unordered_map<char, string> huffCode;
+
     ifstream fin;
     fin.open("words.txt");
 
@@ -35,53 +38,41 @@ int main(){
 
     fin.close();
     
+
     for(int i = 0; i < fileString.length(); i++){
+
         checkChar = count(uniqueString.begin(), uniqueString.end(), fileString[i]);
 
         if (checkChar == 0){
             countChar = count(fileString.begin(), fileString.end(), fileString[i]);
             uniqueString.append(string(1,fileString[i]));
-            data = DataClass(countChar, fileString[i]);
-            
-            data_queue.push(data);
-            
+            node_queue.push(tree->newNode(fileString[i], countChar, NULL, NULL));
         }
     }
     
+    while(node_queue.size() > 1){
+        Node *left = node_queue.top();
+        node_queue.pop();
+        Node *right = node_queue.top();
+        node_queue.pop();
 
-
-    while(!data_queue.empty()){
-        Node *left = new Node(data_queue.top());
-        cout << "LEFT:  "<< data_queue.top() << endl;
-        data_queue.pop();
-
-        countChar = left->data.number;
-        Node *right = NULL;
-
-        if (!data_queue.empty()){
-            Node *right = new Node(data_queue.top());
-            cout << "RIGHT: " << data_queue.top() << endl;
-            data_queue.pop();
-            countChar += right->data.number;
-
-            
-        }
-        node = new Node(DataClass(countChar), left, right);
-
-        if (!data_queue.empty()){
-            data_queue.push(node);
-        }
+        countChar = left->number + right->number;
+        node_queue.push(tree->newNode('\0', countChar, left, right));
     }
 
-
-
-    HuffTree *huffman = NULL;
-    huffman = new HuffTree(node);
+    tree->root = node_queue.top();
+    
+    tree->huffmanEncoding(tree->root, "", huffCode);
 
     
 
-    cout << huffman << endl;
+    ofstream fout;
+    fout.open("encodedWords.txt", ios_base::app);
 
+
+    for (int i = 0; i < fileString.size(); i++){
+        fout << huffCode[fileString[i]];
+    }
     // delete &huffman;
 
     // cout << huffman << endl;
