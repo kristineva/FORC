@@ -56,7 +56,7 @@ bool Node::operator<(Node const node) const{
     return data.number < node.data.number;
 }
 
-bool Node::operator>(Node const node){
+bool Node::operator>(Node const node) const{
 
     return data.number > node.data.number;
 }
@@ -70,6 +70,9 @@ ostream& operator<<(ostream& out, const Node *node){
     return out;
 }
 
+HuffTree::HuffTree(){
+    this->root = Node();
+}
 
 HuffTree::HuffTree(Node root){
     this->root = root;
@@ -80,6 +83,6 @@ HuffTree::~HuffTree(){
 }
 
 ostream& operator<<(ostream& out, const HuffTree ht){
-    out << ht.root;
+    out << ht.root << "HÉRHÉRHÉR ER ÉG!!";
     return out;
 }
