@@ -83,9 +83,8 @@ HuffTree::~HuffTree(){
 }
 
 ostream& operator<<(ostream& out, const HuffTree *ht){
-    return ht->root;
-    // if(ht->root != NULL){
-    //     out << ht->root;
-    // }
-    // return out;
+    if(ht->root != NULL){
+        out << ht->root;
+    }
+    return out;
 }
