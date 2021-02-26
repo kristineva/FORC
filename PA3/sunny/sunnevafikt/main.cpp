@@ -20,6 +20,7 @@ using namespace std;
 int main(int argc, char ** argv){
     Node *node = NULL;
 
+    HuffTree *tree = NULL;
     string lineString;
     string fileString;
     string uniqueString;
@@ -30,16 +31,9 @@ int main(int argc, char ** argv){
         
         priority_queue<Node*, vector<Node*>, CompareNodes> node_queue;
         
-
-        
-
-
         int countChar;
         int checkChar;
         
-        
-
-
         ifstream fin;
         fin.open(argv[2]);
 
@@ -85,7 +79,7 @@ int main(int argc, char ** argv){
         }
 
 
-        HuffTree *tree = new HuffTree(node_queue.top());
+        tree = new HuffTree(node_queue.top());
 
 
         tree->huffmanEncoding(tree->root, "", huffCode);
@@ -115,25 +109,65 @@ int main(int argc, char ** argv){
         ifstream fin;
         fin.open(argv[2]);
 
-        while(lineString != "\\"){
-            fin >> lineString;
-            char letter = lineString[0];
-            lineString.erase(0,2);
-            huffCode[letter] = lineString;
-        }
+        bool readCode = false;
 
-        node = new Node();
-        HuffTree *tree = new HuffTree(node);
+        while(!fin.eof()){
+            if (!readCode){
+                fin >> lineString;
+                if (lineString == "\\"){
+                    fin >> lineString;
+                    readCode = true;
+                }
+                else{
+                    char letter = lineString[0];
+                    lineString.erase(0,2);
+                    huffCode[letter] = lineString;
+
+                    node = new Node();
+                    tree = new HuffTree(node);
+                    string code;
+
+                    cout << "HÉRNA1" << endl;
+
+                    cout << "HÉRNA2" << endl;
+
+
+                    for (unordered_map<char, string>::iterator it = huffCode.begin(); it != huffCode.end(); it++){
+
+                        tree->huffmanDecodingBuildTree(it->first, it->second);
+                        cout << "HÉRNA3" << endl;
+                    }
+
+                    cout << "HÉRNA4" << endl;
+                    cout << tree;
+                }
+            }
+            
+            
+
+            ofstream fout;
+            remove(argv[3]);
+            fout.open(argv[3], ios_base::app);
+
+            fin >> lineString;
+
+            cout << "HÉRNA5" << endl;
+
+
+            fout << tree->huffmanDecode(lineString) << "\n";
+
+            cout << "HÉRNA6" << endl;
+
+            fout.close();
+            
+        }
         
 
-        string code;
-
-        unordered_map<char, string>::iterator count = huffCode.begin();
-        while(count != huffCode.end()){
-            tree->huffmanDecoding(tree->root, count->first, count->second);
-        }
+        
 
         fin.close();
+
+        
     }
     // delete &huffman;
 

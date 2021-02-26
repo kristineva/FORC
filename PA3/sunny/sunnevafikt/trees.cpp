@@ -68,18 +68,52 @@ void HuffTree::huffmanEncoding(Node* node, string code, unordered_map<char, stri
     huffmanEncoding(node->right, code + "1", huffCode);
 }
 
-void HuffTree::huffmanDecodingRecurr(Node *node, char letter, string code, int counter){
-    if (code == ""){
+void HuffTree::huffmanDecodingBuildTreeRecurr(Node *node, char letter, string code){
+    if (code.empty()){
+        node->letter = letter;
         return;
     }
 
-    if (code[counter] == '0'){
-        
+    if (code[0] == '0'){
+        if (node->left == NULL){
+            node->left = new Node();
+        }
+        huffmanDecodingBuildTreeRecurr(node->left, letter, code.erase(0, 1));
+    }
+    else{
+        if (node->right == NULL){
+            node->right = new Node();
+        }
+        huffmanDecodingBuildTreeRecurr(node->right, letter, code.erase(0, 1));
     }
 }
 
-void HuffTree::huffmanDecoding(Node* node, char letter, string code){
-    huffmanDecodingRecurr(root, letter, code, 0);
+void HuffTree::huffmanDecodingBuildTree(char letter, string code){
+    huffmanDecodingBuildTreeRecurr(root, letter, code);
+}
+
+string HuffTree::huffmanDecodeRecurr(Node *node, string toDecode, string toReturn){
+    if (!node->left && !node->right){
+        toReturn += node->letter;
+        if (toDecode.empty()){
+            return toReturn;
+        }
+        return huffmanDecodeRecurr(root, toDecode, toReturn);
+    }
+
+    if (toDecode[0] == '0'){
+        return huffmanDecodeRecurr(node->left, toDecode.erase(0, 1), toReturn);
+    }
+
+    if (toDecode[0] == '1'){
+        return huffmanDecodeRecurr(node->right, toDecode.erase(0, 1), toReturn);
+    }
+
+    return toReturn;
+}
+
+string HuffTree::huffmanDecode(string toDecode){
+    return huffmanDecodeRecurr(root, toDecode, "");
 }
 
 ostream& operator<<(ostream& out, const HuffTree *ht){

@@ -39,8 +39,13 @@ public:
 
 
     void huffmanEncoding(Node* node, string str, unordered_map<char, string> &huffCode);
-    void huffmanDecoding(Node* node, char letter, string code);
-    void huffmanDecodingRecurr(Node* node, char letter, string code);
+
+    void huffmanDecodingBuildTree(char letter, string code);
+    void huffmanDecodingBuildTreeRecurr(Node* node, char letter, string code);
+
+    string huffmanDecode(string toDecode);
+    string huffmanDecodeRecurr(Node* node, string toDecode, string toReturn);
+
     Node *root;
 private:
     
