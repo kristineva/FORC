@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "trees.h"
+#include "node.h"
 
 using namespace std;
 

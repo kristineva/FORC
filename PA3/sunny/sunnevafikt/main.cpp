@@ -2,7 +2,7 @@
 
 #include <fstream>
 
-#include "trees.h"
+#include "node.h"
 
 #include <queue>
 
@@ -62,10 +62,6 @@ int main(int argc, char ** argv){
         sort(uniqueString.begin(), uniqueString.end());
         priority_queue<Node*, vector<Node*>, CompareNodes> copyQueue;
         copyQueue = node_queue;
-        while(!copyQueue.empty()){
-            cout << copyQueue.top() << endl;
-            copyQueue.pop();
-        }
 
 
         while(node_queue.size() > 1){
@@ -81,17 +77,17 @@ int main(int argc, char ** argv){
 
         tree = new HuffTree(node_queue.top());
 
-
         tree->huffmanEncoding(tree->root, "", huffCode);
+
         ofstream fout;
         remove(argv[3]);
         fout.open(argv[3], ios_base::app);
 
         for (int i = 0; i < uniqueString.size(); i++){
-            fout << uniqueString[i] << " | " << huffCode[uniqueString[i]] << "\n";
+            fout << uniqueString[i] << " " << huffCode[uniqueString[i]] << "\n";
         }
 
-        fout << "/" << endl;
+        fout << "\\\n\n";
 
         for (int i = 0; i < fileString.size(); i++){
             if (fileString[i] != '\n'){
@@ -106,70 +102,54 @@ int main(int argc, char ** argv){
 
     else if (strcmp(argv[1],"-d") == 0){
 
+        char letter;
+
+        ofstream fout;
+        remove(argv[3]);
+
         ifstream fin;
         fin.open(argv[2]);
 
         bool readCode = false;
 
         while(!fin.eof()){
+            fin >> lineString;
             if (!readCode){
-                fin >> lineString;
                 if (lineString == "\\"){
                     fin >> lineString;
                     readCode = true;
                 }
+                
                 else{
-                    char letter = lineString[0];
-                    lineString.erase(0,2);
+                    letter = lineString[0];
+                    fin >> lineString;
                     huffCode[letter] = lineString;
 
                     node = new Node();
-                    tree = new HuffTree(node);
-                    string code;
 
-                    cout << "HÉRNA1" << endl;
-
-                    cout << "HÉRNA2" << endl;
-
-
-                    for (unordered_map<char, string>::iterator it = huffCode.begin(); it != huffCode.end(); it++){
-
-                        tree->huffmanDecodingBuildTree(it->first, it->second);
-                        cout << "HÉRNA3" << endl;
+                    if (tree == NULL){
+                        tree = new HuffTree(node);
                     }
 
-                    cout << "HÉRNA4" << endl;
-                    cout << tree;
+                    string code;
+
+                    for (unordered_map<char, string>::iterator it = huffCode.begin(); it != huffCode.end(); it++){
+                        tree->huffmanDecodingBuildTree(it->first, it->second);
+                        
+                    }
                 }
             }
             
-            
+            if (readCode){
+                
+                fout.open(argv[3], ios_base::app);
 
-            ofstream fout;
-            remove(argv[3]);
-            fout.open(argv[3], ios_base::app);
+                fout << tree->huffmanDecode(lineString) << "\n";
 
-            fin >> lineString;
-
-            cout << "HÉRNA5" << endl;
-
-
-            fout << tree->huffmanDecode(lineString) << "\n";
-
-            cout << "HÉRNA6" << endl;
-
-            fout.close();
-            
+                fout.close();
+            }
         }
-        
-
-        
 
         fin.close();
-
-        
     }
-    // delete &huffman;
-
-    // cout << huffman << endl;
 }
