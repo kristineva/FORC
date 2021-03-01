@@ -142,14 +142,19 @@ int main(int argc, char ** argv){
             
             if (readCode){
                 
-                fout.open(argv[3], ios_base::app);
+                if (!fin.eof()){
+                
+                    fout.open(argv[3], ios_base::app);
 
-                fout << tree->huffmanDecode(lineString) << "\n";
+                    fout << tree->huffmanDecode(lineString) << "\n";
 
-                fout.close();
+                    fout.close();
+                }
             }
         }
 
         fin.close();
+
     }
+
 }

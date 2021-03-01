@@ -8,6 +8,7 @@
         "filesystem": "cpp",
         "system_error": "cpp",
         "__split_buffer": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "new": "cpp"
     }
 }
