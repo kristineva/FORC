@@ -23,8 +23,3 @@ protected:
     bool natural;
     int disquiet;
 };
-
-struct Ghoul : Creature{
-public:
-    Ghoul() : Creature(4, 4, 2, 0, 6){};
-};
