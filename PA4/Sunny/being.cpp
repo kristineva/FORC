@@ -17,7 +17,7 @@ public:
         this->life = life;
         this->strength = strength;
         this->intelligence = intelligence;
-    }
+    };
 protected:
     int life;
     int strength;

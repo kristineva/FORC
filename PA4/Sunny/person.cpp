@@ -29,19 +29,3 @@ protected:
     int fear;
 private:
 };
-
-class Nurse : public Person{
-public:
-    Nurse() : Person(){
-        this->life = 5 + rand() % 3;
-        this->strength = 3 + rand() % 5;
-        this->intelligence = 7 + rand() % 3;
-    }
-
-    Nurse(int life, int strength, int intelligence, string gender, int fear) : Person (life, strength, intelligence, gender, fear){
-        
-    }
-protected:
-private:
-
-};
