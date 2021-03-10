@@ -89,17 +89,20 @@ void createRoleSpecies(map<string, Being*> roles)
 
 void getListRoleSpecies(map<string, Being*> roles)
 {
-    for (auto itr = roles.begin(); itr != roles.end(); ++itr){
-        it->second().print();
+    map<string, Being*>::iterator it;
+    for (it = roles.begin(); it != roles.end(); ++it){
+        cout << it->first;
     }
 }
 
 void removeRoleSpecies(map<string, Being*> roles)
 {
+    map<string, Being*>::iterator it;
     cout << "Which role or species do you want to erase?" << endl;
-    for (auto itr = roles.begin(); itr != roles.end(); ++itr){
+    
+    for (it = roles.begin(); it != roles.end(); ++it){
         for (int i = 0; i < roles.size(); i++){
-            cout << i << ": "<< itr->first;
+            cout << i << ":\n" << it->second;
         }
     }
 }

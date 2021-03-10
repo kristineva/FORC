@@ -16,6 +16,8 @@ public:
     EldritchHorror();
 
     EldritchHorror(string name, int life, int strength, int intelligence, int traumatism);
+
+    virtual ~EldritchHorror();
 private:
     int traumatism;
 };

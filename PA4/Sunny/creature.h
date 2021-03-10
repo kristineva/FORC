@@ -17,6 +17,8 @@ public:
 
     Creature(string name, int life, int strength, int intelligence, bool natural, int disquiet);
 
+    virtual ~Creature();
+    
     void print();
 protected:
     bool natural;
