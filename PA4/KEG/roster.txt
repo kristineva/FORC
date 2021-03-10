@@ -1,0 +1,24 @@
+Name:Ghoul
+Type:Creature
+Life:4
+Strength:4
+Intelligence:2
+Natural:False
+Disquiet:6
+
+Name:Wolf
+Type:Creature
+Life:4
+Strength:6
+Intelligence:5
+Natural:True
+Disquiet:2
+
+Name:Reporter
+Type:Person
+Life:5-7
+Strength:2-6
+Intelligence:6-8
+Gender:(user assigned)
+Fear:(0 or randomized)
+Terror:(0 or randomized)
