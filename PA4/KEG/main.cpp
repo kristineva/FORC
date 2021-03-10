@@ -57,6 +57,10 @@ void createRoleSpecies(map<string, Being*> roles)
         filestream << "Disquite: " << disquiet;
 
         roles[name] = new Creature(name, life, strength, intelligence, natural, disquiet);
+        for(auto it = roles.cbegin(); it != roles.cend(); ++it)
+        {
+            cout << it->first << " " << it->second->life << " " << it->second->strength << " " << it->second->intelligence << "\n";
+        }
     }
 
     else if (type == "Eldritch horror"){

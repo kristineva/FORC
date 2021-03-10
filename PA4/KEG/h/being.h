@@ -12,7 +12,8 @@ public:
     Being();
     Being(string name, int life, int strength, int intelligence);
     virtual ~Being();
-protected:
+    friend ostream& operator<<(ostream& out, Being const& being);
+
     string name;
     int life;
     int strength;

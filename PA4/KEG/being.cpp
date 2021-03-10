@@ -29,3 +29,9 @@ Being::~Being(){
     delete &strength;
     delete &intelligence;
 }
+
+ostream& operator<<(ostream& out, Being const& being){
+    out << "Name: " << being.name;
+    out << "Life: " << being.life;
+    return out;
+}

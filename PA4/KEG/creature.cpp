@@ -24,7 +24,13 @@ Creature::~Creature(){
     delete &disquiet;
 }
 
-void Creature::print(){
+ostream& operator<<(ostream& out, Creature const& creature){
+    out << "Name: " << creature.name;
+    out << "Life: " << creature.life;
+    return out;
+}
+
+/* void Creature::print(){
     string nat;
     if (natural == true){
         nat = "Yes";
@@ -39,4 +45,4 @@ void Creature::print(){
          << "\nIntelligence: " << intelligence 
          << "\nNatural: " << nat
          << "\nDisquiet: " << disquiet;
-}
+}*/ 

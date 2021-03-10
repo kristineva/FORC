@@ -18,8 +18,8 @@ public:
     Creature(string name, int life, int strength, int intelligence, bool natural, int disquiet);
 
     virtual ~Creature();
+    friend ostream& operator<<(ostream& out, Creature const& creature);
     
-    void print();
 protected:
     bool natural;
     int disquiet;
