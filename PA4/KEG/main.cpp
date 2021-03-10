@@ -6,11 +6,11 @@
 #include <string>
 #include <map>
 
-#include "being.h"
-#include "creature.h"
-#include "eldritchHorror.h"
-#include "investigator.h"
-#include "person.h"
+#include "h/being.h"
+#include "h/creature.h"
+#include "h/eldritchHorror.h"
+#include "h/investigator.h"
+#include "h/person.h"
 
 using namespace std;
 

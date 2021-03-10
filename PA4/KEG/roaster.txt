@@ -55,3 +55,9 @@ Strength:5
 Intelligence:5
 Natural: 1
 Disquite: 3
+
+Name:jon
+Type:Creatur
+Life:4
+Strength:4
+Intelligence:4

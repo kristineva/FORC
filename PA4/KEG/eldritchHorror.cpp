@@ -4,7 +4,7 @@
 
 #include <string.h>
 
-#include "eldritchHorror.h"
+#include "h/eldritchHorror.h"
 using namespace std;
 
 EldritchHorror::EldritchHorror() : Creature(){

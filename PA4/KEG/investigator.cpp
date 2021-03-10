@@ -4,7 +4,7 @@
 
 #include <string.h>
 
-#include "investigator.h"
+#include "h/investigator.h"
 
 using namespace std;
 

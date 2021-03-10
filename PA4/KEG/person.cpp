@@ -8,7 +8,7 @@
 
 #include <chrono>
 
-#include "person.h"
+#include "h/person.h"
 
 using namespace std;
 

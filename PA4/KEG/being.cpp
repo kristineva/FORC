@@ -4,7 +4,7 @@
 
 #include <string.h>
 
-#include "being.h"
+#include "h/being.h"
 
 using namespace std;
 
