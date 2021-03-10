@@ -4,22 +4,33 @@
 
 #include <string.h>
 
-#include "creature.h"
+#include "h/creature.h"
 
 using namespace std;
 
 
 Creature::Creature() : Being(){
-        this->natural = rand() % 2;
-        this->disquiet = rand() % 11;
+    this->natural = rand() % 2;
+    this->disquiet = rand() % 11;
     }
 
-Creature::Creature(string name, int life, int strength, int intelligence, bool natural, int disquiet) : Being (name, life, strength, intelligence){
-        this->natural = natural;
-        this->disquiet = disquiet;
+Creature::Creature(string name, int life, int strength, int intelligence, string natural, int disquiet) : Being (name, life, strength, intelligence){
+    this->natural = natural;
+    this->disquiet = disquiet;
     }
 
-void Creature::print(){
+Creature::~Creature(){
+    delete &natural;
+    delete &disquiet;
+}
+
+ostream& operator<<(ostream& out, Creature const& creature){
+    out << "Name: " << creature.name;
+    out << "Life: " << creature.life;
+    return out;
+}
+
+/* void Creature::print(){
     string nat;
     if (natural == true){
         nat = "Yes";
@@ -34,4 +45,4 @@ void Creature::print(){
          << "\nIntelligence: " << intelligence 
          << "\nNatural: " << nat
          << "\nDisquiet: " << disquiet;
-}
+}*/ 

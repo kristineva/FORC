@@ -19,6 +19,6 @@ Type:Person
 Life:5-7
 Strength:2-6
 Intelligence:6-8
-Gender:(user assigned)
-Fear:(0 or randomized)
-Terror:(0 or randomized)
+Gender:Male
+Fear:0
+Terror:0

@@ -21,6 +21,8 @@ public:
 
     Person(string name, int life, int strength, int intelligence, string gender, int fear);
     
+    virtual ~Person();
+    
     void print();
 protected:
     string gender;

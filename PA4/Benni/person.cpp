@@ -8,7 +8,7 @@
 
 #include <chrono>
 
-#include "person.h"
+#include "h/person.h"
 
 using namespace std;
 
@@ -30,4 +30,9 @@ void Person::print(){
          << "\nIntelligence: " << intelligence 
          << "Gender: " << gender 
          << "Fear: " << fear;
+}
+
+Person::~Person(){
+    delete &gender;
+    delete &fear;
 }
