@@ -22,3 +22,10 @@ Being::Being(string name, int life, int strength, int intelligence){
         this->strength = strength;
         this->intelligence = intelligence;
     };
+
+Being::~Being(){
+    delete &name;
+    delete &life;
+    delete &strength;
+    delete &intelligence;
+}

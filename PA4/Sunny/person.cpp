@@ -31,3 +31,8 @@ void Person::print(){
          << "Gender: " << gender 
          << "Fear: " << fear;
 }
+
+Person::~Person(){
+    delete &gender;
+    delete &fear;
+}

@@ -10,9 +10,13 @@ using namespace std;
 
 
 Investigator::Investigator() : Person(){
-        this->terror = rand() % 4;
+    this->terror = rand() % 4;
     }
 
 Investigator::Investigator(string name, int life, int strength, int intelligence, string gender, int fear, int terror) : Person(name, life, strength, intelligence, gender, fear){
-        this->terror = terror;
+    this->terror = terror;
     }
+
+Investigator::~Investigator(){
+    delete &terror;
+}
