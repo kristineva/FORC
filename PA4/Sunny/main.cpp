@@ -8,8 +8,8 @@
 
 #include "being.h"
 #include "creature.h"
-// #include "eldritchHorror.cpp"
-// #include "investigator.cpp"
+#include "eldritchHorror.h"
+#include "investigator.h"
 #include "person.h"
 
 using namespace std;
@@ -84,23 +84,22 @@ void createRoleSpecies(map<string, Being*> roles)
     
     if (type == "Creature"){
         roles[name] = new Creature(name, life, strength, intelligence, natural, disquiet);
-    
-               
+    }
 }
 
 void getListRoleSpecies(map<string, Being*> roles)
 {
-    for (map<string, Being*> >::const_iterator it = roles.begin(); it != roles.end(); ++it){
-        it.second().print();
+    for (auto itr = roles.begin(); itr != roles.end(); ++itr){
+        it->second().print();
     }
 }
 
 void removeRoleSpecies(map<string, Being*> roles)
 {
     cout << "Which role or species do you want to erase?" << endl;
-    for (map<string, Being*> >::const_iterator it = roles.begin(); it != roles.end(); ++it){
+    for (auto itr = roles.begin(); itr != roles.end(); ++itr){
         for (int i = 0; i < roles.size(); i++){
-            cout << i << it.first();
+            cout << i << ": "<< itr->first;
         }
     }
 }
