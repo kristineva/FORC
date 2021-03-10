@@ -4,19 +4,15 @@
 
 #include <string.h>
 
-#include "person.cpp"
+#include "investigator.h"
 
 using namespace std;
 
-class Investigator:Person{
-public:
-    Investigator() : Person(){
+
+Investigator::Investigator() : Person(){
         this->terror = rand() % 4;
     }
 
-    Investigator(int life, int strength, int intelligence, string gender, int fear, int terror) : Person(life, strength, intelligence, gender, fear){
+Investigator::Investigator(string name, int life, int strength, int intelligence, string gender, int fear, int terror) : Person(name, life, strength, intelligence, gender, fear){
         this->terror = terror;
     }
-private:
-    int terror;
-};

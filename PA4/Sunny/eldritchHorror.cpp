@@ -4,21 +4,15 @@
 
 #include <string.h>
 
-#include "creature.cpp"
-
+#include "eldritchHorror.h"
 using namespace std;
 
-class EldritchHorror:Creature{
-public:
-    EldritchHorror() : Creature(){
+EldritchHorror::EldritchHorror() : Creature(){
         this->disquiet = 10;
         this->natural = false;
         this->traumatism = rand() % 4;
     }
 
-    EldritchHorror(int life, int strength, int intelligence, int traumatism) : Creature(life, strength, intelligence, natural = false, disquiet = 10){
+EldritchHorror::EldritchHorror(string name, int life, int strength, int intelligence, int traumatism) : Creature(name, life, strength, intelligence, false, 10){
         this->traumatism = traumatism;
     }
-private:
-    int traumatism;
-};
