@@ -1,120 +1,24 @@
-
-
 Name:Ghoul
 Type:Creature
 Life:4
 Strength:4
 Intelligence:2
-Natural:0
+Natural:False
 Disquiet:6
-Gender:nie
+
+Name:Wolf
+Type:Creature
+Life:4
+Strength:6
+Intelligence:5
+Natural:True
+Disquiet:2
+
+Name:Reporter
+Type:Person
+Life:5-7
+Strength:2-6
+Intelligence:6-8
+Gender:Male
 Fear:0
 Terror:0
-
-
-Name:Ghoul
-Type:Creature
-Life:4
-Strength:4
-Intelligence:2
-Natural:0
-Disquiet:6
-Gender:
-Fear:0
-Terror:0
-
-
-Name:Ghoul
-Type:Creature
-Life:4
-Strength:4
-Intelligence:2
-Natural:0
-Disquiet:6
-Gender:
-Fear:0
-Terror:0
-
-
-Name:Ghooul
-Type:Creature
-Life:4
-Strength:4
-Intelligence:2
-Natural:0
-Disquiet:6
-Gender:
-Fear:0
-Terror:0
-
-
-Name:Creature
-Type:Creature
-Life:5
-Strength:5
-Intelligence:5
-Natural: 1
-Disquite: 3
-
-Name:jon
-Type:Creatur
-Life:4
-Strength:4
-Intelligence:4
-
-
-Name:jon
-Type:Creature
-Life:5
-Strength:5
-Intelligence:5
-Natural: 1
-Disquite: 4
-
-Name:jon
-Type:Creature
-Life:5
-Strength:5
-Intelligence:5
-Natural: 1
-Disquite: 4
-
-Name:jon
-Type:Creature
-Life:4
-Strength:4
-Intelligence:4
-Natural: 1
-Disquite: 3
-
-Name:jon
-Type:Creature
-Life:4
-Strength:4
-Intelligence:4
-Natural: 1
-Disquite: 3
-
-Name:jon
-Type:Creature
-Life:5
-Strength:5
-Intelligence:5
-Natural: 1
-Disquite: 3
-
-Name:jon
-Type:Creature
-Life:3
-Strength:4
-Intelligence:4
-Natural: 1
-Disquite: 0
-
-Name:jon
-Type:Creature
-Life:4
-Strength:4
-Intelligence:4
-Natural: 1
-Disquite: 0
