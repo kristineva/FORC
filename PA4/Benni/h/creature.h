@@ -15,11 +15,13 @@ class Creature:public Being{
 public:
     Creature();
 
-    Creature(string name, int life, int strength, int intelligence, bool natural, int disquiet);
+    Creature(string name, int life, int strength, int intelligence, string natural, int disquiet);
 
-    void print();
+    virtual ~Creature();
+    friend ostream& operator<<(ostream& out, Creature const& creature);
+    
 protected:
-    bool natural;
+    string natural;
     int disquiet;
 };
 

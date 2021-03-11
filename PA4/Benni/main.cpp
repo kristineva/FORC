@@ -5,124 +5,99 @@
 #include <string.h>
 #include <string>
 #include <map>
-
-#include "being.h"
-#include "creature.h"
-#include "eldritchHorror.h"
-#include "investigator.h"
-#include "person.h"
+#include <sstream>
 
 using namespace std;
+#include "h/being.h"
+#include "h/creature.h"
+#include "h/eldritchHorror.h"
+#include "h/investigator.h"
+#include "h/person.h"
 
-void createRoleSpecies(map<string, Being*> roles)
-{
-    std::ofstream filestream;
-    filestream.open("roaster.txt", std::ios_base::app);
+
+
+int main() {
+    map<string, Being*> roles;
+    map<string, string> bla;
+    fstream file("roaster.txt");
+
     string name;
     string type;
-    int life;         //change to string to allow "5-7"?
-    int strength;     //change to string to allow "5-7"?v
-    int intelligence; //change to string to allow "5-7"?
-    bool natural;
+    int life;
+    int strength;
+    int intelligence;
+    string natural;
     int disquiet;
     int traumatism;
     string gender;
     int fear;
     int terror;
 
-    cout << "Name: ";
-    cin >> name;
-    cout << "Type: ";
-    cin >> type;
-    cout << "Life: ";
-    cin >> life;
-    cout << "Strength: ";
-    cin >> strength;
-    cout << "Intelligence: ";
-    cin >> intelligence;
-    
-    filestream << "\n\n"
-               << "Name:" << name << "\n"
-               << "Type:" << type << "\n"
-               << "Life:" << life << "\n"
-               << "Strength:" << strength << "\n"
-               << "Intelligence:" << intelligence << "\n";
-
-    if (type == "Creature"){
-        cout << "Natural: ";
-        cin >> natural;
-        cout << "Disquiet: ";
-        cin >> disquiet;
-        filestream << "Natural: " << natural << "\n";
-        filestream << "Disquite: " << disquiet;
+    string key;
+    string value;
+    if (file.is_open()) {
+        string line;
+        while (getline(file, line)) {
+            if (line.empty()) {
+                break;
+            }
+            key = line.substr(0, line.find(":"));
+            value = line.substr(line.find(":") + 1, line.length());
+            bla.insert(pair<string, string>(key, value));
+            }
     }
-    if (type == "Eldritch horror"){
-        natural = 0;
+    map<string, string>::iterator it;
+
+    it = bla.find("Name");
+    cout <<  it->second;
+    name = it->second;
+
+    it = bla.find("Type");
+    type = it->second;
+
+    it = bla.find("Life");
+    life = stoi(it->second);
+
+    it = bla.find("Strength");
+    strength = stoi(it->second);
+
+    it = bla.find("Intelligence");
+    intelligence = stoi(it->second);
+
+
+    if (type == "Creature") {
+        it = bla.find("Natural");
+        natural = it->second;
+
+        it = bla.find("Disquiet");
+        disquiet = stoi(it->second);
+
+        roles[name] = new Creature(name, life, strength, intelligence, natural, disquiet);
+        for(auto it = roles.cbegin(); it != roles.cend(); ++it)
+        {
+            cout << it->first << " " << it->second->life << " " << it->second->strength << " " << it->second->intelligence << "\n";
+        }
+    }
+
+    else if (type == "Eldritch horror"){
+        natural = "Unnatural";
         disquiet = 10;
         cout << "Traumatism: ";
         cin >> traumatism;
-        filestream << "Natural: " << natural << "\n";
-        filestream << "Disquite: " << disquiet << "\n";
-        filestream << "Traumatism: " << traumatism;
     }
     
-    
-    if (type == "Person" || type == "Investigator"){
+    else if (type == "Person" || type == "Investigator"){
         cout << "Gender: ";
         cin >> gender;
         cout << "Fear: ";
         cin >> fear;
-        filestream << "Gender:" << gender << "\n"
-                   << "Fear:" << fear << "\n";
+
         if (type == "Investigator"){
             cout << "Terror: ";
             cin >> terror;
-            filestream << "Terror:" << terror;
-        }
-        
-    }
-    
-    if (type == "Creature"){
-        roles[name] = new Creature(name, life, strength, intelligence, natural, disquiet);
-    }
-}
 
-void getListRoleSpecies(map<string, Being*> roles)
-{
-    for (auto itr = roles.begin(); itr != roles.end(); ++itr){
-        it->second().print();
-    }
-}
-
-void removeRoleSpecies(map<string, Being*> roles)
-{
-    cout << "Which role or species do you want to erase?" << endl;
-    for (auto itr = roles.begin(); itr != roles.end(); ++itr){
-        for (int i = 0; i < roles.size(); i++){
-            cout << i << ": "<< itr->first;
         }
     }
 }
 
-int main()
-{
-    srand(chrono::system_clock::to_time_t(chrono::system_clock::now()));
-    int chosenNumber;
-    map<string, Being*> roles;
-    cout << "1. Create new role/species\n2. Get list of all roles/species\n3. Remove role/species\nYour choice: ";
-    cin >> chosenNumber;
 
-    cout << chosenNumber << endl;
-    switch (chosenNumber)
-    {
-    case 1:
-        createRoleSpecies(roles);
-        break;
-    case 2:
-        getListRoleSpecies(roles);
-    case 3:
-        removeRoleSpecies(roles);
-    default:
-        cout << "Please try again" << endl;
-    }
-}
