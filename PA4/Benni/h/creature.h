@@ -11,18 +11,20 @@
 
 using namespace std;
 
-class Creature:public Being{
+class Creature:public Being {
 public:
     Creature();
 
-    Creature(string name, int life, int strength, int intelligence, string natural, int disquiet);
+    Creature(string name, string type, int life, int strength, int intelligence, bool natural, int disquiet, int traumatism);
 
     virtual ~Creature();
-    friend ostream& operator<<(ostream& out, Creature const& creature);
+
+    friend ostream& operator<<(ostream& out, const Creature *creature);
     
 protected:
     string natural;
     int disquiet;
+    int traumatism;
 };
 
 #endif

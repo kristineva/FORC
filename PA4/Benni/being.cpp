@@ -13,8 +13,9 @@ Being::Being() {
         this->intelligence = rand() % 11;
 };
     
-Being::Being(string name, int life, int strength, int intelligence){
+Being::Being(string name, string type, int life, int strength, int intelligence) {
         this->name = name;
+        this->type = type;
         this->life = life;
         this->strength = strength;
         this->intelligence = intelligence;
@@ -27,8 +28,11 @@ Being::~Being() {
     delete &intelligence;
 };
 
-ostream& operator<<(ostream& out, Being const& being) {
-    out << "Name: " << being.name;
-    out << "Life: " << being.life;
+ostream& operator<<(ostream& out, const Being *being) {
+    out << "Name: " << being->name << endl
+        << "Type: " << being->type << endl
+        << "Life: " << being->life << endl
+        << "Strength: " << being->strength << endl
+        << "Intelligence: " << being->intelligence << endl;
     return out;
 };

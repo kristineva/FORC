@@ -19,11 +19,11 @@ class Person : public Being{
 public:
     Person();
 
-    Person(string name, int life, int strength, int intelligence, string gender, int fear);
+    Person(string name, string type, int life, int strength, int intelligence, string gender, int fear);
     
     virtual ~Person();
     
-    void print();
+    friend ostream& operator<<(ostream& out, const Person *person);
 protected:
     string gender;
     int fear;

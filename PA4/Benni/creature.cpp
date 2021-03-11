@@ -9,40 +9,38 @@
 using namespace std;
 
 
-Creature::Creature() : Being(){
+Creature::Creature() : Being() {
     this->natural = rand() % 2;
     this->disquiet = rand() % 11;
-    }
+}
 
-Creature::Creature(string name, int life, int strength, int intelligence, string natural, int disquiet) : Being (name, life, strength, intelligence){
+Creature::Creature(string name, string type, int life, int strength, int intelligence, bool natural, int disquiet, int traumatism) : Being (name, type, life, strength, intelligence) {
     this->natural = natural;
     this->disquiet = disquiet;
-    }
-
-Creature::~Creature(){
-    delete &natural;
-    delete &disquiet;
-}
-
-ostream& operator<<(ostream& out, Creature const& creature){
-    out << "Name: " << creature.name;
-    out << "Life: " << creature.life;
-    return out;
-}
-
-/* void Creature::print(){
-    string nat;
-    if (natural == true){
-        nat = "Yes";
+    if (this->type == "Eldritch Horror"){
+        this->traumatism = traumatism;
     }
     else{
-        nat = "No";
+        this->traumatism = -1;
     }
+}
 
-    cout << "Name: " << name 
-         << "\nLife: " << life 
-         << "\nStrength: " << strength 
-         << "\nIntelligence: " << intelligence 
-         << "\nNatural: " << nat
-         << "\nDisquiet: " << disquiet;
-}*/ 
+Creature::~Creature() {
+    delete &natural;
+    delete &disquiet;
+    delete &traumatism;
+}
+
+ostream& operator<<(ostream& out, const Creature *creature) {
+    out << "Name: " << creature->name << endl
+        << "Type: " << creature->type << endl
+        << "Life: " << creature->life << endl
+        << "Strength: " << creature->strength << endl
+        << "Intelligence: " << creature->intelligence << endl
+        << "Natural: " << creature->natural << endl
+        << "Disquiet: " << creature->disquiet << endl;
+        if (creature->type == "Eldritch horror"){
+            out << "Traumatism: " << creature->traumatism << endl;
+        }
+    return out;
+};

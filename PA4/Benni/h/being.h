@@ -7,14 +7,18 @@
 
 using namespace std;
 
-class Being{
+class Being {
 public:
     Being();
-    Being(string name, int life, int strength, int intelligence);
+
+    Being(string name, string type, int life, int strength, int intelligence);
+
     virtual ~Being();
-    friend ostream& operator<<(ostream& out, Being const& being);
+
+    friend ostream& operator<<(ostream& out, const Being *being);
 
     string name;
+    string type;
     int life;
     int strength;
     int intelligence;
