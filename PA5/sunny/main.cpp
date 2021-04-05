@@ -67,9 +67,6 @@ bool checkIfValidWord(string word, vector<string> validWords, char hand[7]){
     return false;
 }
 
-    
-
-
 string giveNewLetters(string remainingLetters, char hand[7], string lettersUsed){
     int num;
     string strhand = string(hand);
@@ -140,31 +137,26 @@ void calculatePoints(string word, int points[4], int place){
         }
     }
 }
-    
-// (1 point)-A, E, I, O, U, L, N, S, T, R
-// (2 points)-D, G
-// (3 points)-B, C, M, P
-// (4 points)-F, H, V, W, Y
-// (5 points)-K
-// (8 points)- J, X
-// (10 points)-Q, Z
 
 int main() {
     int choice;
     int numOfPlayers;
+    char agin;
     char players[4][20];
     int points[4];
     char hand[4][7];
     char board[15][15];
+    string allLetters = "aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrrssssttttttuuuuvvwwxyyz"; //Blanks?
     string remainingLetters = "aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrrssssttttttuuuuvvwwxyyz"; //Blanks?
     vector<string> allowedWords;
-    int counter = 0;
     allowedWords = loadWords();
     string word;
     
+    cout << "Hello! Welcome to a fun game of Scrabble!\n";
+    cout << "To start a new game, choose 1\nTo quit, choose 2\nYour choice: ";
+    cin >> choice;
     while (true){
-        cout << "Hello! Welcome to a fun game of Scrabble!\nTo start a new game, choose 1\nTo quit, choose 2\nYour choice: ";
-        cin >> choice;
+        
         if (choice == 1) {
             cout << "How many are playing? (2/3/4)\nYour choice: ";
             cin >> numOfPlayers;
@@ -211,6 +203,14 @@ int main() {
             }
             for (int i = 0; i < numOfPlayers; i++){
                 cout << players[i] << ", your total points are: " << points[i] << endl;
+            }
+            cout << "Play again? (y/n): ";
+            cin >> agin;
+            if (agin != 'y'){
+                break;
+            }
+            else{
+                remainingLetters = allLetters;
             }
         }
         else if (choice != 2) {
