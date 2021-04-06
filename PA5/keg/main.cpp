@@ -8,6 +8,64 @@
 #include "game.h"
 using namespace std;
 
+void makeBoard () {
+    int gridSize = 15;
+    int cellSize = 4;
+    int total = gridSize * cellSize;
+    string c;
+    string direction = "horizontal";
+    int count = 0;
+    int vertCount = 1;
+    cout << "\n";
+    cout << "     ";
+    for (int k = 1; k < gridSize + 1; k++) {
+        if (to_string(k).length() == 2) {
+            cout << " " << " " << " " << k << " " << " " << " ";
+        } else {
+            cout << " " << " " << " " << k << " " << " " << " " << " ";
+        }
+    }
+
+    cout << "\n";
+    cout << "   ";
+    for (int i = 0; i < total + 1; i++) {
+        for (int j = 0; j < total + 1; j++) {
+            if (i % cellSize == 0 || j % cellSize == 0) {
+                if (direction == "horizontal") {
+                    c = " _";
+                    
+                } else {
+                    c = " |";
+                }
+                
+            } else {
+                c = "  ";
+            }
+            cout << c;
+        }
+        count++;
+        cout << endl;
+        if (count == cellSize) {
+            direction = "horizontal";
+            count = 0;
+            cout << "   ";
+        } else {
+            if (vertCount != 16 && count == 2) {
+                if (to_string(vertCount).length() == 2) {
+                    cout << " " << vertCount;
+                } else {
+                    cout << " " << vertCount << " ";
+                }
+                vertCount++;
+            } else {
+                cout << "   ";
+            }
+            direction = "vertical";
+        }
+        
+    }
+    cout << "\n";
+}
 int main() {
     int numOfPlayers;
     Player players[4];
@@ -34,6 +92,7 @@ int main() {
             players[i].name = name;
             game.remainingLetters = players[i].newHand(game.remainingLetters);
         }
+        makeBoard();
         while (game.remainingLetters.length() != 0){
             for (int i = 0; i < numOfPlayers; i++){
                 cout << "\n" << players[i].name << ", it's your turn\nFind a word from your letters.\nYour letters are:\n" << endl;
