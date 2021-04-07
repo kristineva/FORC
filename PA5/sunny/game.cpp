@@ -8,9 +8,10 @@ using namespace std;
 
 Game::Game(){
     this->numOfPlayers = 0;
-    this-> remainingLetters = "aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrrssssttttttuuuuvvwwxyyz"; //Blanks?
+    this->remainingLetters = "aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrrssssttttttuuuuvvwwxyyz"; //Blanks?
     this->allLetters = "aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrrssssttttttuuuuvvwwxyyz"; //Blanks?
     this->allowedWords = loadWords();
+    fillBoard();
 }
 
 Game::Game(int numOfPlayers){
@@ -18,9 +19,10 @@ Game::Game(int numOfPlayers){
     this-> remainingLetters = "aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrrssssttttttuuuuvvwwxyyz"; //Blanks?
     this->allLetters = "aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrrssssttttttuuuuvvwwxyyz"; //Blanks?
     this->allowedWords = loadWords();
+    fillBoard();
 }
 
-Game::Game(int numOfPlayers, string remainingLetters){
+Game::Game(int numOfPlayers, string remainingLetters, char board[15][15]){
     this->numOfPlayers = numOfPlayers;
     this->remainingLetters = remainingLetters;
     this->allLetters = "aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrrssssttttttuuuuvvwwxyyz"; //Blanks?
@@ -64,9 +66,46 @@ bool Game::validWordCheck(string word, char playersHand[7]){
     return false;
 }
 
+void Game::fillBoard(){
+    for (int col = 0; col < 15; col++){
+        for (int row = 0; row < 15; row++){
+            this->board[col][row] = ' ';
+        }
+        cout << endl;
+    }
+}
+
+void Game::modifyBoard(int colnum, int rownum, bool direction, string word){   //Direction is true for right and false for down.
+    for (int i = 0; i < word.length(); i++) {
+        if (direction){
+            this->board[rownum+i-1][colnum-1] = word[i];
+        }
+        else {
+            this->board[rownum-1][colnum+i-1] = word[i];
+        }
+    }
+
+}
+
+void Game::displayBoard(){
+    cout << endl << endl;
+    for (int col = 0; col < 15; col++){
+        for (int row = 0; row < 15; row++){
+            if (row == 4 && col == 5){
+                cout << "[A]";
+            }
+            else{
+                cout << "[" << this->board[row][col] << "]";
+            }
+            
+        }
+        cout << endl;
+    }
+}
 
 Game::~Game(){
-
+    delete &allowedWords;
+    delete &remainingLetters;
 }
 
 ostream& operator<<(ostream& out, const Game *game){
