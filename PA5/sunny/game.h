@@ -18,7 +18,7 @@ public:
     vector<string> loadWords();
     
     bool validWordCheck(string word, char playersHand[7]);
-
+    bool fitsOnBoard(int colnum, int rownum, bool direction, string word);
     void fillBoard();
     void modifyBoard(int colnum, int rownum, bool direction, string word);
     void displayBoard();
