@@ -3,6 +3,7 @@
 #include "game.h"
 #include <fstream>
 #include <vector>
+#include <queue>
 using namespace std;
 
 
@@ -87,7 +88,7 @@ void Game::fillBoard(){
     }
 }
 
-void Game::modifyBoard(int colnum, int rownum, bool direction, string word){   //Direction is true for right and false for down.
+void Game::modifyBoard(int colnum, int rownum, bool direction, string word){   //Direction is true for horizontal and false for vertical.
     for (int i = 0; i < word.length(); i++) {
         if (direction){
             this->board[colnum+i-1][rownum-1] = word[i];
@@ -126,6 +127,63 @@ void Game::displayBoard(){
         }
         cout << endl;
     }
+}
+
+priority_queue<pair<int, string> > Game::getHighScores(){
+    priority_queue<pair<int, string> > highScores;
+    string playerName;
+    string playSco;
+    int playerScore;
+    ifstream highstream;
+    bool stillName = true;
+
+    highstream.open("highscores.txt");
+    while (!highstream.eof()){
+        string line;
+        highstream >> line;
+        if (!line.empty()){
+            for (int i = 0; i < line.length(); i++){
+                if (line[i] == ':'){
+                    stillName = false;
+                }
+                else if (stillName){
+                    playerName += line[i];
+                }
+                else{
+                    playSco += line[i];
+                }
+            }
+        }
+        playerScore = stoi(playSco);
+        highScores.push(make_pair(playerScore, playerName));
+        stillName = true;
+        playerName = playSco = "";
+    }
+    highstream.close();
+
+    return highScores;
+}
+
+void Game::writeHighScores(priority_queue<pair<int, string> > highScores){
+    int top;
+    if (highScores.size() < 5){
+        top = highScores.size();
+    }
+    else{
+        top = 5;
+    }
+
+    ofstream highstream;
+    highstream.open("highscores.txt");
+
+    for (int i = 0; i < top; i++){
+        string pname = highScores.top().second;
+        int pscore = highScores.top().first;
+        highstream << pname << ":" << pscore << endl;
+        highScores.pop();
+    }
+
+    highstream.close();
 }
 
 Game::~Game(){

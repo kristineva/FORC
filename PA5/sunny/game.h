@@ -5,6 +5,10 @@
 
 #include <vector>
 
+#include <map>
+
+#include <queue>
+
 using namespace std;
 
 class Game {
@@ -22,6 +26,8 @@ public:
     void fillBoard();
     void modifyBoard(int colnum, int rownum, bool direction, string word);
     void displayBoard();
+    priority_queue<pair<int, string> > getHighScores();
+    void writeHighScores(priority_queue<pair<int, string> > highScores);
 
     virtual ~Game();
 
