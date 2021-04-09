@@ -9,7 +9,7 @@ using namespace std;
 
 Game::Game(){
     this->numOfPlayers = 0;
-    this->remainingLetters = "aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrrssssttttttuuuuvvwwxyyz"; //Blanks?
+    this->remainingLetters = "aaaaaaaaa"; //bbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrrssssttttttuuuuvvwwxyyz"; //Blanks?
     this->allLetters = "aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrrssssttttttuuuuvvwwxyyz"; //Blanks?
     this->allowedWords = loadWords();
     fillBoard();
@@ -149,13 +149,15 @@ priority_queue<pair<int, string> > Game::getHighScores(){
                 else if (stillName){
                     playerName += line[i];
                 }
-                else{
+                else {
                     playSco += line[i];
                 }
             }
         }
-        playerScore = stoi(playSco);
-        highScores.push(make_pair(playerScore, playerName));
+        if (!playSco.empty()){
+            playerScore = stoi(playSco);
+            highScores.push(make_pair(playerScore, playerName));
+        }
         stillName = true;
         playerName = playSco = "";
     }
