@@ -45,14 +45,14 @@ vector<string> Game::loadWords(){
     return words;
 }
 
-bool Game::fitsOnBoard(int colnum, int rownum, bool direction, string word){        //rows  //2 //13 //True // 4
+bool Game::fitsOnBoard(int colnum, int rownum, bool direction, string word){
     if ((colnum > 15) || (rownum > 15)){
         return false;
     }
-    else if ((direction) && (((colnum - 1) + word.length()) > 15)){
+    else if ((direction) && (((rownum - 1) + word.length()) > 15)){
         return false;
     }
-    else if ((!direction) && (((rownum - 1) + word.length()) > 15)){
+    else if ((!direction) && (((colnum - 1) + word.length()) > 15)){
         return false;
     }
     return true;
@@ -166,7 +166,7 @@ priority_queue<pair<int, string> > Game::getHighScores(){
 
 void Game::writeHighScores(priority_queue<pair<int, string> > highScores){
     int top;
-    if (highScores.size() < 5){
+    if (highScores.size() <= 4){
         top = highScores.size();
     }
     else{
@@ -176,7 +176,7 @@ void Game::writeHighScores(priority_queue<pair<int, string> > highScores){
     ofstream highstream;
     highstream.open("highscores.txt");
 
-    for (int i = 0; i < top; i++){
+    for (int i = 0; i < (top-1); i++){
         string pname = highScores.top().second;
         int pscore = highScores.top().first;
         highstream << pname << ":" << pscore << endl;
