@@ -22,7 +22,7 @@ int main() {
     cout << "\nHello! Welcome to a fun game of Scrabble!";
 
     while (true){
-        cout << "\n(1) New game\n(2) List of highscores\nUse any other key to quit.\nYour choice: ";
+        cout << "\n(1) New game\n(2) List of highscores\n(3) Rules\nUse any other key to quit.\nYour choice: ";
         cin >> choice;
         if (choice == 1){
             while (true){
@@ -33,6 +33,12 @@ int main() {
                 for (int i = 0; i < numOfPlayers; i++){
                     cout << "\nName of player: ";
                     cin >> name;
+                    for (int j = 0; j < i+1; j++){
+                        if (players[j].name == name){
+                            cout << "\nPlayers must have unique names, please select a different name: ";
+                            cin >> name;
+                        }
+                    }
                     players[i].name = name;
                     game.remainingLetters = players[i].newHand(game.remainingLetters);
                 }
@@ -53,6 +59,14 @@ int main() {
                             if (word == "q"){
                                 game.remainingLetters = players[i].newHand(game.remainingLetters);
                                 break;
+                            }
+
+                            else if (word == "r"){
+                                ifstream file("rules.txt");
+
+                                if (file.is_open()) {
+                                    cout << file.rdbuf();
+                                }
                             }
 
                             string upperWord = word;
@@ -78,7 +92,7 @@ int main() {
                                     cin >> col;
                                     cout << "In which row do you want to place this word?\nYour choice: ";
                                     cin >> row;
-                                    cout << "Should the word be horizontal or vertical? (h/v)\n Your choice: ";
+                                    cout << "Should the word be horizontal or vertical? (h/v)\nYour choice: ";
                                     cin >> direction;
                                     
 
@@ -112,7 +126,7 @@ int main() {
                                 players[i].calculatePoints(word);
                                 game.remainingLetters = players[i].newLetters(game.remainingLetters, word);
                                 
-                                cout << players[i].name << "'s total points are: " << players[i].points << endl;
+                                cout << "\n" << players[i].name << "'s total points are: " << players[i].points << endl;
                                 break;
                             }
                         }
@@ -140,6 +154,13 @@ int main() {
             }
 
             high.close();
+        }
+        else if (choice == 3){
+            ifstream file("rules.txt");
+
+            if (file.is_open()) {
+                cout << file.rdbuf();
+            }
         }
         else{
             break;
