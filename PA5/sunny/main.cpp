@@ -7,6 +7,8 @@
 #include <queue>
 #include "player.h"
 #include "game.h"
+#include <typeinfo>
+#include <sstream>
 using namespace std;
 
 int main() {
@@ -29,122 +31,167 @@ int main() {
         cin >> choice;
         if (choice == 1){
             system("clear");
-            cout << "\nHow many are playing? (2/3/4)\n\nYour choice: ";
-            cin >> numOfPlayers;
-            game.numOfPlayers = numOfPlayers;
-            highScores = game.getHighScores();
-            for (int i = 0; i < numOfPlayers; i++){
-                system("clear");
-                cout << "\nName of player " << i+1 << ": ";
-                cin >> name;
-                for (int j = 0; j < i+1; j++){
-                    if (players[j].name == name){
-                        cout << "\nPlayers must have unique names, please select a different name: ";
+            while (true) {
+                cout << "\nHow many are playing? (2/3/4)\n\nYour choice: ";
+                cin >> numOfPlayers;
+
+                if ((numOfPlayers == 2) || (numOfPlayers == 3) || (numOfPlayers == 4)){
+                    game.numOfPlayers = numOfPlayers;
+                    highScores = game.getHighScores();
+                    for (int i = 0; i < numOfPlayers; i++){
+                        system("clear");
+                        cout << "\nName of player " << i+1 << ": ";
                         cin >> name;
+                        for (int j = 0; j < i+1; j++){
+                            if (players[j].name == name){
+                                cout << "\nPlayers must have unique names, please select a different name: ";
+                                cin >> name;
+                            }
+                        }
+                        players[i].name = name;
+                        game.remainingLetters = players[i].newHand(game.remainingLetters);
                     }
-                }
-                players[i].name = name;
-                game.remainingLetters = players[i].newHand(game.remainingLetters);
-            }
-            while (game.remainingLetters.length() != 0){
-                for (int i = 0; i < numOfPlayers; i++){
-                    system("clear");
-                    game.displayBoard();
-                    cout << "\n" << players[i].name << ", it's your turn" << endl;
-                    
+                    while (game.remainingLetters.length() != 0){
+                        for (int i = 0; i < numOfPlayers; i++){
+                            system("clear");
+                            game.displayBoard();
+                            cout << "\n" << players[i].name << ", it's your turn" << endl;
+                            
 
-                    cout << "\nFind a word from your letters.\nIf you can't find a valid word, enter 'q' for a new set of letters on the next turn.\n\nYour letters are:\n";
-                    for (int j = 0; j < 7; j++){
-                        cout << players[i].hand[j] << " ";
-                    }
-                    while(true){
-                        
-                        cout << endl << "\nEnter your word: ";
-                        cin >> word;
-                        if (word == "q"){
-                            game.remainingLetters = players[i].newHand(game.remainingLetters);
-                            break;
-                        }
-
-                        string upperWord = word;
-                        for (int i = 0; i < word.size(); i++){
-                            upperWord[i] = toupper(upperWord[i]);
-                        }
-
-                        if ((!game.validWordCheck(upperWord, players[i].hand))){
-                            cout << word << " is not a valid word. Try again or, if you can't find a valid word, enter 'q' for\na new set of letters on the next turn.";
-                                                
-                        }
-                        else{
-                            int row;
-                            int col;
-                            char direction;
-                            bool dir;
-
-                            while (true){
-                                if (first){
-                                    cout << "\nYou are placing the first word on the board. Make sure a letter in your word lands on the middle square (row 8, column 8)\n";
-                                }
-                                cout << "\nIn which column do you want to place this word?\nYour choice: ";
-                                cin >> col;
-                                /* if (isdigit(col) == true){
-                                    cout << "COL IS NOT DIGIT";
-                                    // cout << "\nThe column value must be a number in the range 1-15, please select a new column\nYour choice: ";
-                                    // cin >> col;
-                                } */
-                                cout << "\nIn which row do you want to place this word?\nYour choice: ";
-                                cin >> row;
-                                cout << "\nShould the word be horizontal or vertical? (h/v)\nYour choice: ";
-                                cin >> direction;
+                            cout << "\nFind a word from your letters.\nIf you can't find a valid word, enter 'q' for a new set of letters on the next turn.\n\nYour letters are:\n";
+                            for (int j = 0; j < 7; j++){
+                                cout << players[i].hand[j] << " ";
+                            }
+                            while(true){
                                 
-                                if (direction == 'h'){
-                                    dir = true;
+                                cout << endl << "\nEnter your word: ";
+                                cin >> word;
+                                if (word == "q"){
+                                    game.remainingLetters = players[i].newHand(game.remainingLetters);
+                                    break;
+                                }
+
+                                string upperWord = word;
+                                for (int i = 0; i < word.size(); i++){
+                                    upperWord[i] = toupper(upperWord[i]);
+                                }
+
+                                if ((!game.validWordCheck(upperWord, players[i].hand))){
+                                    cout << word << " is not a valid word. Try again or, if you can't find a valid word, enter 'q' for\na new set of letters on the next turn.";
+                                                        
                                 }
                                 else{
-                                    dir = false;
-                                }
+                                    int row;
+                                    int col;
+                                    char direction;
+                                    bool dir;
+                                    string str_col;
+                                    string str_row;
 
-                                if (!game.fitsOnBoard(col, row, dir, word)){
-                                    cout << "'" << word << "' does not fit on the board at that position. Try again." << endl;
-                                }
-                                else {
-                                    if (first){
-                                        if ((!((8-(word.length() + 1) <= row) && (row <= 8))) || (!((8 - (word.length() + 1 ) <= col) && (col <= 8)))){
-                                            cout << "The word does not land on the middle square. Try again.\n";
+                                    while (true){
+
+                                        while(true) {
+                                            if (first){
+                                                cout << "\nYou are placing the first word on the board.\nMake sure a letter in your word lands on the middle square (row 8, column 8)\n";
+                                            }
+
+                                            cout << "\nIn which column do you want to place this word?\nYour choice: ";
+                                            cin >> str_col;
+
+                                            stringstream ssCol(str_col); 
+                                            int j;
+                                            if ((ssCol >> j).fail()) { 
+                                                // not convertible to int 
+                                                cout << "\nColumn value must be a number, try again.\n";
+
+                                            }
+                                            else { 
+                                                // convertible to int 
+                                                col = stoi(str_col);
+                                                while (true) {
+                                                    cout << "\nIn which row do you want to place this word?\nYour choice: ";
+                                                    cin >> str_row;
+                                                    stringstream ssRow(str_row);
+
+                                                    if ((ssRow >> j).fail()) { 
+                                                        // not convertible to int 
+                                                        cout << "\nRow value must be a number, try again.\n";
+
+                                                    } 
+                                                    else { 
+                                                        // convertible to int 
+                                                        row = stoi(str_row);
+                                                        break;
+                                                    } 
+                                                }
+                                                break;
+                                            }
+                                            
+                                            
                                         }
-                                        else{
-                                            first = false;
-                                            break;
+                                        while (true){
+                                            cout << "\nShould the word be placed across or down? (a/d)\nYour choice: ";
+                                            cin >> direction;
+                                            
+                                            if (direction == 'a'){
+                                                dir = true;
+                                                break;
+                                            }
+                                            else if (direction == 'd'){
+                                                dir = false;
+                                                break;
+                                            }
+                                            else{
+                                                cout << "'" << direction << "' is not an option, try again.\n";
+                                            }
+                                        }
+                
+                                        if (!game.fitsOnBoard(col, row, dir, word)){
+                                            cout << "'" << word << "' does not fit on the board at that position. Try again." << endl;
+                                        }
+                                        else {
+                                            if (first){
+                                                if ((!((8-(word.length() + 1) <= row) && (row <= 8))) || (!((8 - (word.length() + 1 ) <= col) && (col <= 8)))){
+                                                    cout << "The word does not land on the middle square. Try again.\n";
+                                                }
+                                                else{
+                                                    first = false;
+                                                    break;
+                                                }
+                                            }
+                                            else{
+                                                break;
+                                            }
                                         }
                                     }
-                                    else{
-                                        break;
+                                
+                                    game.modifyBoard(col, row, dir, word);   
+                                    players[i].calculatePoints(word);
+                                    game.remainingLetters = players[i].newLetters(game.remainingLetters, word);
+                                    
+                                    string next;
+                                    cout << "\n" << players[i].name << "'s total points are: " << players[i].points << endl;
+                                    if (i == numOfPlayers - 1) {
+                                        cout << "\nWhen the next player (" << players[0].name  <<" is ready for their turn, enter any key: ";
+                                    } else {
+                                        cout << "\nWhen the next player (" << players[i+1].name  <<") is ready for their turn, enter any key: ";
                                     }
+                                    cin >> next;
+                                    break;
                                 }
                             }
-                        
-                            game.modifyBoard(col, row, dir, word);   
-                            players[i].calculatePoints(word);
-                            game.remainingLetters = players[i].newLetters(game.remainingLetters, word);
-                            
-                            string next;
-                            cout << "\n" << players[i].name << "'s total points are: " << players[i].points << endl;
-                            if (i == numOfPlayers - 1) {
-                                cout << "\nWhen the next player (" << players[0].name  <<" is ready for their turn, enter any key: ";
-                            } else {
-                                cout << "\nWhen the next player (" << players[i+1].name  <<") is ready for their turn, enter any key: ";
-                            }
-                            cin >> next;
-                            break;
                         }
                     }
+                    for (int i = 0; i < numOfPlayers; i++){
+                        cout << "\nYour total points are: " << players[i].points << endl;
+                        highScores.push(make_pair(players[i].points, players[i].name));
+                    }
+                    game.writeHighScores(highScores);
+                    break;
+                } else {
+                    cout << "'" << numOfPlayers << "' is not an option, the options are 2, 3 or 4 players, try again.\n";
                 }
             }
-            for (int i = 0; i < numOfPlayers; i++){
-                cout << "\n" << players[i].name << ", your total points are: " << players[i].points << endl;
-                highScores.push(make_pair(players[i].points, players[i].name));
-            }
-            game.writeHighScores(highScores);
         }
         else if (choice == 2){
             system("clear");
