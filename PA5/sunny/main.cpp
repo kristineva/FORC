@@ -170,7 +170,7 @@ int main() {
                                     game.remainingLetters = players[i].newLetters(game.remainingLetters, word);
                                     
                                     string next;
-                                    cout << "\n" << players[i].name << "'s total points are: " << players[i].points << endl;
+                                    cout << "\nYour total points are: " << players[i].points << endl;
                                     if (i == numOfPlayers - 1) {
                                         cout << "\nWhen the next player (" << players[0].name  <<" is ready for their turn, enter any key: ";
                                     } else {
@@ -183,7 +183,7 @@ int main() {
                         }
                     }
                     for (int i = 0; i < numOfPlayers; i++){
-                        cout << "\nYour total points are: " << players[i].points << endl;
+                        cout << "\n" << players[i].name << ", your total points are: " << players[i].points << endl;
                         highScores.push(make_pair(players[i].points, players[i].name));
                     }
                     game.writeHighScores(highScores);
