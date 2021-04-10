@@ -20,18 +20,22 @@ int main() {
     priority_queue<pair<int, string> > highScores;
     int choice;
 
+    system("clear");
     cout << "\nHello! Welcome to a fun game of Scrabble!";
 
     while (true){
-        cout << "\n(1) New game\n(2) List of highscores\n(3) Rules\nUse any other key to quit.\nYour choice: ";
+        system("clear");
+        cout << "\n\n(1) New game\n(2) List of highscores\n(3) Rules\n\nUse any other key to quit.\n\nYour choice: ";
         cin >> choice;
         if (choice == 1){
-            cout << "\nHow many are playing? (2/3/4)\nYour choice: ";
+            system("clear");
+            cout << "\nHow many are playing? (2/3/4)\n\nYour choice: ";
             cin >> numOfPlayers;
             game.numOfPlayers = numOfPlayers;
             highScores = game.getHighScores();
             for (int i = 0; i < numOfPlayers; i++){
-                cout << "\nName of player: ";
+                system("clear");
+                cout << "\nName of player " << i+1 << ": ";
                 cin >> name;
                 for (int j = 0; j < i+1; j++){
                     if (players[j].name == name){
@@ -44,11 +48,12 @@ int main() {
             }
             while (game.remainingLetters.length() != 0){
                 for (int i = 0; i < numOfPlayers; i++){
+                    system("clear");
                     game.displayBoard();
                     cout << "\n" << players[i].name << ", it's your turn" << endl;
                     
 
-                    cout << "\nFind a word from your letters.\nYour letters are:\n";
+                    cout << "\nFind a word from your letters.\nIf you can't find a valid word, enter 'q' for a new set of letters on the next turn.\n\nYour letters are:\n";
                     for (int j = 0; j < 7; j++){
                         cout << players[i].hand[j] << " ";
                     }
@@ -67,7 +72,7 @@ int main() {
                         }
 
                         if ((!game.validWordCheck(upperWord, players[i].hand))){
-                            cout << word << " is not a valid word. Try again or, if you find no valid words, enter 'q' for\na new set of letters on the next turn.";
+                            cout << word << " is not a valid word. Try again or, if you can't find a valid word, enter 'q' for\na new set of letters on the next turn.";
                                                 
                         }
                         else{
@@ -78,15 +83,26 @@ int main() {
 
                             while (true){
                                 if (first){
-                                    cout << "You are placing the first word on the board. Make sure it lands on the middle square (row 8, column 8)\n";
+                                    cout << "\nYou are placing the first word on the board. Make sure a letter in your word lands on the middle square (row 8, column 8)\n";
                                 }
-                                cout << "In which column do you want to place this word?\nYour choice: ";
+                                cout << "\nIn which column do you want to place this word?\nYour choice: ";
                                 cin >> col;
-                                cout << "In which row do you want to place this word?\nYour choice: ";
+                                /* if (isdigit(col) == true){
+                                    cout << "COL IS NOT DIGIT";
+                                    // cout << "\nThe column value must be a number in the range 1-15, please select a new column\nYour choice: ";
+                                    // cin >> col;
+                                } */
+                                cout << "\nIn which row do you want to place this word?\nYour choice: ";
                                 cin >> row;
-                                cout << "Should the word be horizontal or vertical? (h/v)\nYour choice: ";
+                                cout << "\nShould the word be horizontal or vertical? (h/v)\nYour choice: ";
                                 cin >> direction;
                                 
+                                if (direction == 'h'){
+                                    dir = true;
+                                }
+                                else{
+                                    dir = false;
+                                }
 
                                 if (!game.fitsOnBoard(col, row, dir, word)){
                                     cout << "'" << word << "' does not fit on the board at that position. Try again." << endl;
@@ -107,18 +123,18 @@ int main() {
                                 }
                             }
                         
-                            if (direction == 'h'){
-                                dir = true;
-                            }
-                            else{
-                                dir = false;
-                            }
-                        
                             game.modifyBoard(col, row, dir, word);   
                             players[i].calculatePoints(word);
                             game.remainingLetters = players[i].newLetters(game.remainingLetters, word);
                             
+                            string next;
                             cout << "\n" << players[i].name << "'s total points are: " << players[i].points << endl;
+                            if (i == numOfPlayers - 1) {
+                                cout << "\nWhen the next player (" << players[0].name  <<" is ready for their turn, enter any key: ";
+                            } else {
+                                cout << "\nWhen the next player (" << players[i+1].name  <<") is ready for their turn, enter any key: ";
+                            }
+                            cin >> next;
                             break;
                         }
                     }
@@ -131,7 +147,8 @@ int main() {
             game.writeHighScores(highScores);
         }
         else if (choice == 2){
-            cout << "\nHIGH SCORES:\n\nNAME:POINTS\n";
+            system("clear");
+            cout << "\nHIGH SCORES\n\nNAME:POINTS\n";
             int counter = 1;
             fstream high;
             high.open("highscores.txt");
@@ -143,19 +160,21 @@ int main() {
                     cout << counter++ << ":  " << line << endl;
                 }
             }
-            cout << "\nPress any key to continue: ";
+            cout << "\nEnter any key to go back to main menu: ";
             string cont;
             cin >> cont;
             high.close();
         }
         else if (choice == 3){
+            system("clear");
+            cout << "\nRULES\n\nNAME:POINTS\n";
             ifstream file("rules.txt");
 
             if (file.is_open()) {
                 cout << file.rdbuf();
             }
 
-            cout << "\nPress any key to continue: ";
+            cout << "\nEnter any key to go back to main menu: ";
             string cont;
             cin >> cont;
         }

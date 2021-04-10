@@ -1,5 +1,5 @@
 
-Here are the offical rules of Scrabble: The terminal version:
+Here are the rules of Scrabble - The Terminal Version
 
 #1 The first player combines two or more of his or her letters to form 
 a word and places it on the board to read either across or down with one
