@@ -50,10 +50,10 @@ bool Game::fitsOnBoard(int colnum, int rownum, bool direction, string word){
     if ((colnum > 15) || (rownum > 15)){
         return false;
     }
-    else if ((direction) && (((rownum - 1) + word.length()) > 15)){
+    else if ((direction) && (((colnum - 1) + word.length()) > 15)){
         return false;
     }
-    else if ((!direction) && (((colnum - 1) + word.length()) > 15)){
+    else if ((!direction) && (((rownum - 1) + word.length()) > 15)){
         return false;
     }
     return true;
