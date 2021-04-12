@@ -13,13 +13,15 @@ Game::Game(){
     this->remainingLetters = "aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrrssssttttttuuuuvvwwxyyz"; //Blanks?
     this->allLetters = "aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrrssssttttttuuuuvvwwxyyz"; //Blanks?
     this->allowedWords = loadWords();
+    this->highScores = getHighScores();
 }
 
-Game::Game(int numOfPlayers){
+/* Game::Game(int numOfPlayers){
     this->numOfPlayers = numOfPlayers;
     this-> remainingLetters = "aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrrssssttttttuuuuvvwwxyyz"; //Blanks?
     this->allLetters = "aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrrssssttttttuuuuvvwwxyyz"; //Blanks?
     this->allowedWords = loadWords();
+    this->highScores = getHighScores();
 }
 
 Game::Game(int numOfPlayers, string remainingLetters, char board[15][15]){
@@ -27,7 +29,8 @@ Game::Game(int numOfPlayers, string remainingLetters, char board[15][15]){
     this->remainingLetters = remainingLetters;
     this->allLetters = "aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrrssssttttttuuuuvvwwxyyz"; //Blanks?
     this->allowedWords = loadWords();
-}
+    this->highScores = getHighScores();
+} */
 
 vector<string> Game::loadWords(){
     vector<string> words;
@@ -165,10 +168,10 @@ priority_queue<pair<int, string> > Game::getHighScores(){
     return highScores;
 }
 
-void Game::writeHighScores(priority_queue<pair<int, string> > highScores){
+void Game::writeHighScores(){
     int top;
     if (highScores.size() <= 4){
-        top = highScores.size();
+        top = this->highScores.size() - 1;
     }
     else{
         top = 5;
@@ -177,19 +180,26 @@ void Game::writeHighScores(priority_queue<pair<int, string> > highScores){
     ofstream highstream;
     highstream.open("highscores.txt");
 
-    for (int i = 0; i < (top-1); i++){
-        string pname = highScores.top().second;
-        int pscore = highScores.top().first;
+    for (int i = 0; i < (top); i++){
+        string pname = this->highScores.top().second;
+        int pscore = this->highScores.top().first;
         highstream << pname << ":" << pscore << endl;
-        highScores.pop();
+        this->highScores.pop();
     }
     
     highstream.close();
 }
 
+void Game::addtoHighScores(int score, string name) {
+    this->highScores.push(make_pair(score, name));
+}
+
 Game::~Game(){
     delete &allowedWords;
     delete &remainingLetters;
+    delete &numOfPlayers;
+    delete &allLetters;
+    delete &highScores;
 }
 
 ostream& operator<<(ostream& out, const Game *game){

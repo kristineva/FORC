@@ -15,9 +15,9 @@ class Game {
 public:
     Game();
 
-    Game(int numOfPlayers);
+    // Game(int numOfPlayers);
 
-    Game(int numOfPlayers, string remainingLetters, char board[15][15]);
+    // Game(int numOfPlayers, string remainingLetters, char board[15][15]);
 
     vector<string> loadWords();
     
@@ -27,7 +27,8 @@ public:
     void modifyBoard(int colnum, int rownum, bool direction, string word);
     void displayBoard();
     priority_queue<pair<int, string> > getHighScores();
-    void writeHighScores(priority_queue<pair<int, string> > highScores);
+    void writeHighScores();
+    void addtoHighScores(int score, string name);
 
     virtual ~Game();
 
@@ -36,9 +37,11 @@ public:
     int numOfPlayers;
     string allLetters;
     string remainingLetters;
-    string usersWord;
+    // string usersWord;
     vector<string> allowedWords;
     char board[15][15];
+    priority_queue<pair<int, string> > highScores;
+    
 };
 
 #endif
