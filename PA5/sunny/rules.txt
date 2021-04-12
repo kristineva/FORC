@@ -19,5 +19,3 @@ invalid, the player may try again until he discovers a valid play.
 If he does not, he must press 'q' for a new set of letters on the next turn.
 
 #5 The game ends when there are no more letters to draw.
-
-To view the rules at any time during the game simply type 'r'
