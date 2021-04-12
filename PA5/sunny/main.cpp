@@ -50,25 +50,20 @@ int main() {
                         game.fillBoard();
                         game.remainingLetters = game.allLetters;
                         system("clear");
-                        bool checkPoint = true;
                         for (int i = 0; i < numOfPlayers; i++){
-                            while(true) {
-                                cout << "\nName of player " << i+1 << ": ";
-                                cin >> name;
-                                for (int j = 0; j < i+1; j++){
-                                    if (players[j].name == name){
-                                        checkPoint = true;
-                                        cout << "\nPlayers must have unique names, please select a different name: ";
-                                        cin >> name;
-                                    } else {
-                                        checkPoint = false;
+                                while(true) {
+                                    cout << "\nName of player " << i+1 << ": ";
+                                    cin >> name;
+                                    bool happened = false;
+                                    for (int j = 0; j < i+1; j++){
+                                        if (players[j].name == name){
+                                            cout << "\nPlayers must have unique names, please select a different name: ";
+                                            happened = true;
+                                        }
                                     }
-                                
-                                }
-                                if (!checkPoint) {
-                                    break;
-                                }
-                                
+                                    if (!happened){
+                                        break;
+                                    }
                             }
                             players[i].name = name;
                                 game.remainingLetters = players[i].newHand(game.remainingLetters);
