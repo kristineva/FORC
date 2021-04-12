@@ -272,6 +272,7 @@ int main() {
             
             }
             game.writeHighScores(highScores);
+            cout << "\nEnter any key to go back to main menu: ";
             cin >> cont;
             // break;
         }
