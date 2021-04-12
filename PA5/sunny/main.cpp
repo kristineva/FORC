@@ -189,7 +189,7 @@ int main() {
                                         string next;
                                         cout << "\nYour total points are: " << players[i].points << endl;
                                         if (i == numOfPlayers - 1) {
-                                            cout << "\nWhen the next player (" << players[0].name  <<" is ready for their turn, enter any key: ";
+                                            cout << "\nWhen the next player (" << players[0].name  <<") is ready for their turn, enter any key: ";
                                         } else {
                                             cout << "\nWhen the next player (" << players[i+1].name  <<") is ready for their turn, enter any key: ";
                                         }
