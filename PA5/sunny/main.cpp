@@ -18,7 +18,6 @@ int main() {
     string name;
     string word;
     char again;
-    bool first = true;
     priority_queue<pair<int, string> > highScores;
     int choice;
 
@@ -29,6 +28,7 @@ int main() {
         system("clear");
         cout << "\n\n(1) New game\n(2) List of highscores\n(3) Rules\n\nUse any other key to quit.\n\nYour choice: ";
         cin >> choice;
+        bool first = true;
         if (choice == 1){
             system("clear");
             while (true) {
@@ -94,7 +94,7 @@ int main() {
 
                                         while(true) {
                                             if (first){
-                                                cout << "\nYou are placing the first word on the board.\nMake sure a letter in your word lands on the middle square (row 8, column 8)\n";
+                                                cout << "\nYou are placing the first word on the board.\nMake sure a letter in your word lands on the middle square (column 8, row 8)\n";
                                             }
 
                                             cout << "\nIn which column do you want to place this word?\nYour choice: ";
