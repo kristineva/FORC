@@ -1,4 +1,4 @@
 sunny:70
 benny:60
+sun:52
 sunny:46
-benny:45
