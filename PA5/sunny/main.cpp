@@ -181,7 +181,6 @@ int main() {
                                                 }
                                             }
                                         }
-                                    
                                         game.modifyBoard(col, row, dir, word);   
                                         players[i].calculatePoints(word);
                                         game.remainingLetters = players[i].newLetters(game.remainingLetters, word);
@@ -247,7 +246,7 @@ int main() {
             cin >> cont;
         }
         else {
-            cout << "exit game";
+            cout << "Exiting game...";
             break;
         }
     }
