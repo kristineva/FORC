@@ -12,7 +12,14 @@
 using namespace std;
 
 int main() {
+    int numOfPlayers;
+    Player players[4];
+    Game game = Game();
+    string name;
+    string word;
+    priority_queue<pair<int, string> > highScores;
     int choice;
+
     system("clear");
     cout << "\nHello! Welcome to a fun game of Scrabble!";
 
@@ -22,51 +29,43 @@ int main() {
         cin >> choice;
         bool first = true;
         if (choice == 1){
-            string str_numOfPlayers;
-            Player players[4];
-            Game game = Game();
-            string name;
-            string word;
-            char again;
-            priority_queue<pair<int, string> > highScores;
             system("clear");
             while (true) {
                 cout << "\nHow many are playing? (2/3/4)\n\nYour choice: ";
+                string str_numOfPlayers;
                 cin >> str_numOfPlayers;
 
                 stringstream ssNum(str_numOfPlayers); 
                 int j;
                 if ((ssNum >> j).fail()) { 
-                    // not convertible to int 
+                    // not convertible to int
                     cout << "'" << str_numOfPlayers << "' is not an option, the options are 2, 3 or 4 players, try again.\n";
-
                 } else {
                     int numOfPlayers = stoi(str_numOfPlayers);
 
                     if ((numOfPlayers == 2) || (numOfPlayers == 3) || (numOfPlayers == 4)){
-                    
                         game.numOfPlayers = numOfPlayers;
                         highScores = game.getHighScores();
                         game.fillBoard();
                         game.remainingLetters = game.allLetters;
                         system("clear");
                         for (int i = 0; i < numOfPlayers; i++){
-                                while(true) {
-                                    cout << "\nName of player " << i+1 << ": ";
-                                    cin >> name;
-                                    bool happened = false;
-                                    for (int j = 0; j < i+1; j++){
-                                        if (players[j].name == name){
-                                            cout << "\nPlayers must have unique names, please select a different name: ";
-                                            happened = true;
-                                        }
+                            while(true){
+                                cout << "\nName of player " << i+1 << ": ";
+                                cin >> name;
+                                bool happened = false;
+                                for (int j = 0; j < i+1; j++){
+                                    if (players[j].name == name){
+                                        cout << "\nPlayers must have unique names, please select a different name: ";
+                                        happened = true;
                                     }
-                                    if (!happened){
-                                        break;
-                                    }
+                                }
+                                if (!happened){
+                                    break;
+                                }
                             }
                             players[i].name = name;
-                                game.remainingLetters = players[i].newHand(game.remainingLetters);
+                            game.remainingLetters = players[i].newHand(game.remainingLetters);
                         }
                         while (game.remainingLetters.length() != 0){
                             for (int i = 0; i < numOfPlayers; i++){
@@ -181,6 +180,7 @@ int main() {
                                                 }
                                             }
                                         }
+                                    
                                         game.modifyBoard(col, row, dir, word);   
                                         players[i].calculatePoints(word);
                                         game.remainingLetters = players[i].newLetters(game.remainingLetters, word);
@@ -188,7 +188,7 @@ int main() {
                                         string next;
                                         cout << "\nYour total points are: " << players[i].points << endl;
                                         if (i == numOfPlayers - 1) {
-                                            cout << "\nWhen the next player (" << players[0].name  <<") is ready for their turn, enter any key: ";
+                                            cout << "\nWhen the next player (" << players[0].name  <<" is ready for their turn, enter any key: ";
                                         } else {
                                             cout << "\nWhen the next player (" << players[i+1].name  <<") is ready for their turn, enter any key: ";
                                         }
@@ -245,8 +245,7 @@ int main() {
             string cont;
             cin >> cont;
         }
-        else {
-            cout << "Exiting game...";
+        else{
             break;
         }
     }
