@@ -38,6 +38,8 @@ int main() {
                 if ((numOfPlayers == 2) || (numOfPlayers == 3) || (numOfPlayers == 4)){
                     game.numOfPlayers = numOfPlayers;
                     highScores = game.getHighScores();
+                    game.fillBoard();
+                    game.remainingLetters = game.allLetters;
                     for (int i = 0; i < numOfPlayers; i++){
                         system("clear");
                         cout << "\nName of player " << i+1 << ": ";
@@ -186,6 +188,9 @@ int main() {
                         cout << "\n" << players[i].name << ", your total points are: " << players[i].points << endl;
                         highScores.push(make_pair(players[i].points, players[i].name));
                     }
+                    cout << "\nEnter any key to go back to main menu: " << endl;
+                    string cont;
+                    cin >> cont;
                     game.writeHighScores(highScores);
                     break;
                 } else {

@@ -13,7 +13,6 @@ Game::Game(){
     this->remainingLetters = "aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrrssssttttttuuuuvvwwxyyz"; //Blanks?
     this->allLetters = "aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrrssssttttttuuuuvvwwxyyz"; //Blanks?
     this->allowedWords = loadWords();
-    fillBoard();
 }
 
 Game::Game(int numOfPlayers){
@@ -21,7 +20,6 @@ Game::Game(int numOfPlayers){
     this-> remainingLetters = "aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrrssssttttttuuuuvvwwxyyz"; //Blanks?
     this->allLetters = "aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrrssssttttttuuuuvvwwxyyz"; //Blanks?
     this->allowedWords = loadWords();
-    fillBoard();
 }
 
 Game::Game(int numOfPlayers, string remainingLetters, char board[15][15]){
